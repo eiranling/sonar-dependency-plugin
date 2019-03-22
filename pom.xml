@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.sonarsource.plugins.example</groupId>
-  <artifactId>sonar-example-plugin</artifactId>
+  <artifactId>sonar-dependency-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
-  <version>6.7.1</version>
+  <version>1.0</version>
 
-  <name>Example Plugin for SonarQube 6.7.x LTS</name>
-  <description>Example of Plugin for SonarQube: Foo Language, FooLint, Custom Metrics and MeasureComputers</description>
+  <name>Dependency Plugin for SonarQube</name>
+  <description>Calculates Metrics for file dependencies</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -56,7 +56,7 @@
         <extensions>true</extensions>
         <configuration>
           <pluginKey>example</pluginKey>
-          <pluginClass>org.sonarsource.plugins.example.ExamplePlugin</pluginClass>
+          <pluginClass>org.sonarsource.plugins.dependencies.SamplePlugin</pluginClass>
         </configuration>
       </plugin>
       <plugin>
