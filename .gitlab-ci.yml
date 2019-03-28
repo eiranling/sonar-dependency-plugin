@@ -1,0 +1,14 @@
+stages:
+  - build
+  - test
+  - deploy
+  
+junit:
+  stage: test
+  script:
+    - mvn clean test
+    
+deploy:
+  stage: deploy
+  script:
+    - mvn clean package
