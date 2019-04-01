@@ -19,7 +19,6 @@ public class SamplePlugin implements Plugin {
                 ComputeDependencyAverage.class,
                 ComputeDependencyRating.class,
                 DependencyWs.class,
-                DependencyPageDefinition.class,
                 GetDependenciesHandler.class,
                 ListDependenciesHandler.class);
 
