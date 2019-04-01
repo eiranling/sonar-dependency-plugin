@@ -12,3 +12,4 @@ deploy:
   stage: deploy
   script:
     - mvn clean package
+    - ./load_script.sh
