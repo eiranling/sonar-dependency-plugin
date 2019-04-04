@@ -5,6 +5,7 @@ import org.sonar.api.measures.Metric;
 import org.sonar.api.measures.Metrics;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class CustomMetrics implements Metrics {
@@ -24,7 +25,7 @@ public class CustomMetrics implements Metrics {
             .create();
 
     public List<Metric> getMetrics() {
-        List<Metric> metrics = new ArrayList<Metric>();
+        List<Metric> metrics = new ArrayList<>();
         metrics.add(CONNECTED_DEPENDENCIES);
         metrics.add(DEPENDENCIES_RATING);
         return metrics;

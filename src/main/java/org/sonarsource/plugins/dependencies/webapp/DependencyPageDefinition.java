@@ -9,7 +9,7 @@ public class DependencyPageDefinition implements PageDefinition {
     public static final String PARAM_CLASS_NAME = "className";
 
     public void define(Context context) {
-        context.addPage(Page.builder("sonartest/test")
+        context.addPage(Page.builder("dependencies/test")
         .setName("Dependencies").setScope(Page.Scope.COMPONENT).build());
     }
 }

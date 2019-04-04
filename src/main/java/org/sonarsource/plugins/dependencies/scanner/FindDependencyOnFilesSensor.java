@@ -1,7 +1,7 @@
 package org.sonarsource.plugins.dependencies.scanner;
 
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.sonar.api.batch.fs.FileSystem;
-import org.sonar.api.batch.fs.IndexedFile;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
@@ -10,12 +10,17 @@ import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.sonarsource.plugins.dependencies.compute.CustomMetrics.CONNECTED_DEPENDENCIES;
 
 public class FindDependencyOnFilesSensor implements Sensor {
 
-    Logger logger = Loggers.get(FindDependencyOnFilesSensor.class);
+    private Logger logger = Loggers.get(FindDependencyOnFilesSensor.class);
 
     public FindDependencyOnFilesSensor() {
     }
@@ -28,11 +33,12 @@ public class FindDependencyOnFilesSensor implements Sensor {
         logger.info("Executing dependency sensor...");
         FileSystem fs = sensorContext.fileSystem();
         logger.info("Scanning in: "+fs.baseDir().getPath());
-        Iterable<InputFile> files = fs.inputFiles(fs.predicates().hasLanguage("java"));
+        Iterable<InputFile> files = fs.inputFiles(fs.predicates().all()); /*fs.predicates().hasLanguage("java")*/
         files.iterator().forEachRemaining(inputFile -> logger.info("Scanning: " + inputFile.filename()));
         for (InputFile file: files) {
+            logger.info("Found file: "+file.filename());
             try {
-                int dependencies = countImports(file.contents());
+                int dependencies = getPackageDependencies(file.contents());
                 logger.info("Found " + dependencies + " dependencies in "+file.filename());
 
                 sensorContext.<Integer>newMeasure()
@@ -46,20 +52,26 @@ public class FindDependencyOnFilesSensor implements Sensor {
         }
     }
 
-    private int countImports(String contents) {
-        String[] statements = contents.split(";");
-        int num_imports = 0;
-        for (String statement : statements) {
-            logger.info(statement);
-            logger.info(Boolean.toString(matchesImportStatement(statement + ";")));
-            if (matchesImportStatement(statement.replace("\n", "")+";")) {
-                num_imports += 1;
+    private int getPackageDependencies(String contents) {
+        try {
+            String[] statements = contents.split("[;\\n]");
+            int imports = 0;
+            for (String statement : statements) {
+                if (matchesImportStatement(statement)) {
+                    imports++;
+                }
             }
+
+            return imports;
+        } catch (Exception e) {
+            logger.error(e.toString());
+            throw e;
         }
-        return num_imports;
     }
 
     private boolean matchesImportStatement(String statement) {
-        return statement.matches("^import .+;$");
+        //
+        //(?<package>.+)\.(\*|[a-zA-Z_$][a-zA-Z\d_$]*)
+        return statement.matches("^import .+$");
     }
 }

@@ -22,6 +22,5 @@ public class SamplePlugin implements Plugin {
                 GetDependenciesHandler.class,
                 ListDependenciesHandler.class);
 
-
     }
 }

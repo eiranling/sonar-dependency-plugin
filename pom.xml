@@ -55,7 +55,7 @@
         <version>1.18.0.372</version>
         <extensions>true</extensions>
         <configuration>
-          <pluginKey>example</pluginKey>
+          <pluginKey>dependencies</pluginKey>
           <pluginClass>org.sonarsource.plugins.dependencies.SamplePlugin</pluginClass>
         </configuration>
       </plugin>
