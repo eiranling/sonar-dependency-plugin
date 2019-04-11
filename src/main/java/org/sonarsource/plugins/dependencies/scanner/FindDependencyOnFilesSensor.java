@@ -36,37 +36,12 @@ public class FindDependencyOnFilesSensor implements Sensor {
         Iterable<InputFile> files = fs.inputFiles(fs.predicates().all()); /*fs.predicates().hasLanguage("java")*/
         files.iterator().forEachRemaining(inputFile -> logger.info("Scanning: " + inputFile.filename()));
         for (InputFile file: files) {
-            logger.info("Found file: "+file.filename());
-            try {
-                int dependencies = getPackageDependencies(file.contents());
-                logger.info("Found " + dependencies + " dependencies in "+file.filename());
 
-                sensorContext.<Integer>newMeasure()
-                        .forMetric(CONNECTED_DEPENDENCIES)
-                        .on(file)
-                        .withValue(dependencies)
-                        .save();
-            } catch (IOException e) {
-                logger.error("Error reading file: "+file.filename());
-            }
         }
     }
 
-    private int getPackageDependencies(String contents) {
-        try {
-            String[] statements = contents.split("[;\\n]");
-            int imports = 0;
-            for (String statement : statements) {
-                if (matchesImportStatement(statement)) {
-                    imports++;
-                }
-            }
+    private ArrayList<String> getPackageDependencies(String contents) {
 
-            return imports;
-        } catch (Exception e) {
-            logger.error(e.toString());
-            throw e;
-        }
     }
 
     private boolean matchesImportStatement(String statement) {

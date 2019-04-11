@@ -10,24 +10,16 @@ import java.util.List;
 
 public class CustomMetrics implements Metrics {
 
-    public static final Metric<Integer> CONNECTED_DEPENDENCIES = new Metric.Builder("dependencies", "dependencies", Metric.ValueType.INT)
-            .setDescription("The number of dependencies the class is connected to.")
-            .setDirection(Metric.DIRECTION_BETTER)
+    public static final Metric<String> CONNECTED_DEPENDENCIES = new Metric.Builder("dependencies", "dependencies", Metric.ValueType.STRING)
+            .setDescription("The classes that this is linked to.")
+            .setDirection(Metric.DIRECTION_WORST)
             .setQualitative(false)
-            .setDomain(CoreMetrics.DOMAIN_MAINTAINABILITY)
-            .create();
-
-    public static final Metric<Integer> DEPENDENCIES_RATING = new Metric.Builder("dependencies_rating", "Class dependencies rating", Metric.ValueType.RATING)
-            .setDescription("Rating based on number of dependencies a class is tied to")
-            .setDirection(Metric.DIRECTION_BETTER)
-            .setQualitative(true)
             .setDomain(CoreMetrics.DOMAIN_MAINTAINABILITY)
             .create();
 
     public List<Metric> getMetrics() {
         List<Metric> metrics = new ArrayList<>();
         metrics.add(CONNECTED_DEPENDENCIES);
-        metrics.add(DEPENDENCIES_RATING);
         return metrics;
     }
 }
