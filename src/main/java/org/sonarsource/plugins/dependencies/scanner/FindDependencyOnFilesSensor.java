@@ -34,7 +34,7 @@ public class FindDependencyOnFilesSensor implements Sensor {
         logger.info("Executing dependency sensor...");
         FileSystem fs = sensorContext.fileSystem();
         logger.info("Scanning in: "+fs.baseDir().getPath());
-        Iterable<InputFile> files = fs.inputFiles(fs.predicates().all()); /*fs.predicates().hasLanguage("java")*/
+        Iterable<InputFile> files = fs.inputFiles(fs.predicates().hasLanguage("java")); /**/
         files.iterator().forEachRemaining(inputFile -> logger.info("Scanning: " + inputFile.filename()));
         for (InputFile file: files) {
             logger.info("Found file: "+file.filename());
