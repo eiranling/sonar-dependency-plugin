@@ -9,7 +9,7 @@ public class ClassMatcher implements LanguageMatcher {
     private Matcher matcher;
 
     public ClassMatcher() {
-        pattern = Pattern.compile("(?<package>(\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*\\.)+)((\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*) | \\*)");
+        pattern = Pattern.compile("(?!//)\\s*import\\s*(?<package>(\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*\\.?)+)\\.((\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*)|\\*)");
     }
 
     @Override

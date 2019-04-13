@@ -37,7 +37,19 @@ public class FindDependencyOnFilesSensor implements Sensor {
         Iterable<InputFile> files = fs.inputFiles(fs.predicates().all()); /*fs.predicates().hasLanguage("java")*/
         files.iterator().forEachRemaining(inputFile -> logger.info("Scanning: " + inputFile.filename()));
         for (InputFile file: files) {
-            new BRDependencyFinder(file, sensorContext).execute();
+            logger.info("Found file: "+file.filename());
+            try {
+                String dependencies = new BRDependencyFinder().findDependencies(file);
+                logger.info("Found " + dependencies.split(";").length + " dependencies in "+file.filename());
+
+                sensorContext.<String>newMeasure()
+                        .forMetric(CONNECTED_DEPENDENCIES)
+                        .on(file)
+                        .withValue(dependencies)
+                        .save();
+            } catch (IOException e) {
+                logger.error("Error reading file: "+file.filename());
+            }
         }
     }
 }

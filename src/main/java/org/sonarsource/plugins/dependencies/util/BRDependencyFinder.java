@@ -1,59 +1,37 @@
 package org.sonarsource.plugins.dependencies.util;
 
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.JavaParserBuild;
+import com.github.javaparser.StaticJavaParser;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.type.ClassOrInterfaceType;
+import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.sonarsource.plugins.dependencies.matchers.ClassMatcher;
 import org.sonarsource.plugins.dependencies.matchers.LanguageMatcher;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import static org.sonarsource.plugins.dependencies.compute.CustomMetrics.CONNECTED_DEPENDENCIES;
+import java.util.HashSet;
 
 public class BRDependencyFinder {
 
-    private InputFile file;
-    private SensorContext context;
     private Logger logger = Loggers.get("DependencyFinder");
 
-    public BRDependencyFinder(InputFile file, SensorContext context) {
-        this.file = file;
-        this.context = context;
+    public BRDependencyFinder() {
     }
 
-    public void execute() {
-        logger.info("Found file: "+file.filename());
+    public String findDependencies(InputFile file) throws IOException {
         try {
-            String dependencies = findDependencies(file);
-            logger.info("Found " + dependencies.split(";").length + " dependencies in "+file.filename());
-
-            context.<String>newMeasure()
-                    .forMetric(CONNECTED_DEPENDENCIES)
-                    .on(file)
-                    .withValue(dependencies)
-                    .save();
-        } catch (IOException e) {
-            logger.error("Error reading file: "+file.filename());
-        }
-    }
-
-    private String findDependencies(InputFile file) throws IOException {
-        try {
-            String[] statements = file.contents().split("[;\\n]");
-
-            LanguageMatcher matcher = new ClassMatcher();
-
-            StringBuilder imports = new StringBuilder();
-            for (String statement : statements) {
-                matcher.getMatcher(statement);
-                if (matcher.matches()) {
-                    imports.append(matcher.findMatched()).append(";");
-                }
+            HashSet<String> imports = new HashSet<>();
+            CompilationUnit unit = StaticJavaParser.parse(file.contents());
+            for (ClassOrInterfaceType type: unit.findAll(ClassOrInterfaceType.class)) {
+                imports.add(type.getNameAsString());
             }
 
-            return imports.toString();
+            return String.join(";", imports);
         } catch (Exception e) {
             logger.error(e.toString());
             throw e;
