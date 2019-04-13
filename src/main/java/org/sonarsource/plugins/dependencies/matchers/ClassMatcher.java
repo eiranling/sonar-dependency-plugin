@@ -5,19 +5,25 @@ import java.util.regex.Pattern;
 
 public class ClassMatcher implements LanguageMatcher {
 
+    private Pattern pattern;
     private Matcher matcher;
 
-    public ClassMatcher(String input) {
-        matcher = Pattern.compile("(\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*\\.)+\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*").matcher(input);
+    public ClassMatcher() {
+        pattern = Pattern.compile("(?<package>(\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*\\.)+)((\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*) | \\*)");
     }
 
     @Override
-    public Matcher getMatcher() {
+    public Matcher getMatcher(String text) {
+        matcher = pattern.matcher(text);
         return matcher;
     }
 
     @Override
-    public boolean matches(String text) {
+    public boolean matches() {
         return matcher.find();
+    }
+
+    public String findMatched() {
+        return matcher.group("package");
     }
 }

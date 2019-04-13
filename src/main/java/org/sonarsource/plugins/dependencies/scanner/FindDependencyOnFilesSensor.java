@@ -8,6 +8,7 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
+import org.sonarsource.plugins.dependencies.util.BRDependencyFinder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,17 +37,7 @@ public class FindDependencyOnFilesSensor implements Sensor {
         Iterable<InputFile> files = fs.inputFiles(fs.predicates().all()); /*fs.predicates().hasLanguage("java")*/
         files.iterator().forEachRemaining(inputFile -> logger.info("Scanning: " + inputFile.filename()));
         for (InputFile file: files) {
-
+            new BRDependencyFinder(file, sensorContext).execute();
         }
-    }
-
-    private ArrayList<String> getPackageDependencies(String contents) {
-
-    }
-
-    private boolean matchesImportStatement(String statement) {
-        //
-        //(?<package>.+)\.(\*|[a-zA-Z_$][a-zA-Z\d_$]*)
-        return statement.matches("^import .+$");
     }
 }

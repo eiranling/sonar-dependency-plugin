@@ -12,7 +12,7 @@ public class CustomMetrics implements Metrics {
 
     public static final Metric<String> CONNECTED_DEPENDENCIES = new Metric.Builder("dependencies", "dependencies", Metric.ValueType.STRING)
             .setDescription("The classes that this is linked to.")
-            .setDirection(Metric.DIRECTION_WORST)
+            .setDirection(Metric.DIRECTION_NONE)
             .setQualitative(false)
             .setDomain(CoreMetrics.DOMAIN_MAINTAINABILITY)
             .create();
