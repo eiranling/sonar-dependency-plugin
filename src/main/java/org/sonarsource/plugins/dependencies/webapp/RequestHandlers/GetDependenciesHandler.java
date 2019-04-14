@@ -5,6 +5,9 @@ import org.sonar.api.server.ws.RequestHandler;
 import org.sonar.api.server.ws.Response;
 import org.sonar.api.server.ws.WebService;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class GetDependenciesHandler implements RequestHandler {
 
     public GetDependenciesHandler() {
@@ -15,16 +18,23 @@ public class GetDependenciesHandler implements RequestHandler {
         WebService.NewAction action = controller.createAction("get")
                 .setDescription("Gets the dependencies of a file in a project")
                 .setHandler(this);
-        action.createParam("class")
-                .setRequired(true)
-                .setExampleValue("Foo.java");
 
-        action.createParam("projectId")
+        action.createParam("componentKey")
                 .setRequired(true)
-                .setExampleValue("my:project");
+                .setExampleValue("projectKey:component")
+                .setDescription("The key of the to find dependencies of");
     }
 
-    public void handle(Request request, Response response) throws Exception {
+    @Override
+    public void handle(Request request, Response response) throws MalformedURLException {
+        okhttp3.Request metricRequest = new okhttp3.Request.Builder()
+                .url(request.getPath()+"../../measures/component_tree")
+                .get().build();
 
+        response.newJsonWriter()
+                .beginObject()
+                .prop("componentKey", request.mandatoryParam("componentKey"))
+                .endObject()
+                .close();
     }
 }

@@ -13,15 +13,24 @@ public class ListDependenciesHandler implements RequestHandler {
     }
 
     public void define(WebService.NewController controller) {
-        controller.createAction("list")
+        WebService.NewAction action = controller.createAction("list")
                 .setDescription("List the dependencies for all classes")
                 .setHandler(this);
+
+        action.createParam("baseComponentKey")
+                .setDescription("Base component key")
+                .setExampleValue("projectId")
+                .setRequired(true);
+
+        action.addPagingParams(100, 500);
+        action.addSearchQuery("Class", "name", "path", "componentKey");
+
     }
 
-    public void handle(Request request, Response response) throws Exception {
-        JsonWriter writer = response.newJsonWriter().beginObject().name("dependencies").beginArray();
-
-        writer.endArray();
-        writer.endObject().close();
+    @Override
+    public void handle(Request request, Response response) {
+        response.newJsonWriter().beginObject()
+                .name("dependencies")
+                .beginArray().endArray().endObject().close();
     }
 }
