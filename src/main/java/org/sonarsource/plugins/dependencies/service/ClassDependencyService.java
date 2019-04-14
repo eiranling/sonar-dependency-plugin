@@ -32,7 +32,7 @@ public class ClassDependencyService {
     }
 
     public Map<InputFile, String> getDependencyMap() {
-        return ImmutableMap.copyOf(dependencyMap);
+        return dependencyMap;
     }
 
     public void findDependencies() throws IOException {
