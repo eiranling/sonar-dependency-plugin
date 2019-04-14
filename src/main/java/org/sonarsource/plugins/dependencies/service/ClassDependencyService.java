@@ -22,6 +22,7 @@ public class ClassDependencyService {
     public ClassDependencyService(Iterable<InputFile> files, BRDependencyFinder finder, BRClassReader reader) {
         dependencyMap = new HashMap<>();
         declaredClasses = new ArrayList<>();
+        this.reader = reader;
         initializeDependencyMap(files);
         this.finder = finder;
     }
