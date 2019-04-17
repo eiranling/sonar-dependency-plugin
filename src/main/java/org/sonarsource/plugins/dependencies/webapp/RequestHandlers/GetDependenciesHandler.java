@@ -20,6 +20,7 @@ public class GetDependenciesHandler implements RequestHandler {
 
     private OkHttpClient client;
 
+
     public GetDependenciesHandler(ClientFactory clientFactory) {
         this.client = clientFactory.generate();
     }

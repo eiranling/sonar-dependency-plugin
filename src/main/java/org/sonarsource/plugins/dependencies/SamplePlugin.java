@@ -6,6 +6,8 @@ import org.sonarsource.plugins.dependencies.scanner.FindDependencyOnFilesSensor;
 import org.sonarsource.plugins.dependencies.webapp.DependencyWs;
 import org.sonarsource.plugins.dependencies.webapp.RequestHandlers.GetDependenciesHandler;
 import org.sonarsource.plugins.dependencies.webapp.RequestHandlers.ListDependenciesHandler;
+import org.sonarsource.plugins.dependencies.webapp.sonarapi.requestors.ComponentTreeMeasuresRequestBuilder;
+import org.sonarsource.plugins.dependencies.webapp.util.ClientFactory;
 
 public class SamplePlugin implements Plugin {
 
@@ -14,7 +16,9 @@ public class SamplePlugin implements Plugin {
                 FindDependencyOnFilesSensor.class,
                 CustomMetrics.class,
                 DependencyWs.class,
+                ClientFactory.class,
                 GetDependenciesHandler.class,
+                ComponentTreeMeasuresRequestBuilder.class,
                 ListDependenciesHandler.class);
 
     }
