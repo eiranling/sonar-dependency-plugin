@@ -44,7 +44,7 @@ public class GetDependenciesHandler implements RequestHandler {
 
         Loggers.get(getClass()).info(Boolean.toString(measures.hasMetrics()));
         Loggers.get(getClass()).info(measures.getComponent().getKey());
-        Loggers.get(getClass()).info(measures.getField(measures.getDescriptorForType().findFieldByName("measures")).toString());
+        Loggers.get(getClass()).info(measures.getField(measures.getDescriptorForType().findFieldByName("value")).toString());
         Loggers.get(getClass()).info(request.getParam("componentKey").getValue());
 
         Common.Metric dependencies = null;
