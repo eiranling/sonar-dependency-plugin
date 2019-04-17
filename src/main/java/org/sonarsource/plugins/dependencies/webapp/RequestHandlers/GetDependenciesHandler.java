@@ -1,8 +1,6 @@
 package org.sonarsource.plugins.dependencies.webapp.RequestHandlers;
 
 import com.google.common.collect.Lists;
-import com.google.protobuf.Descriptors;
-import okhttp3.OkHttpClient;
 import org.sonar.api.server.ws.Request;
 import org.sonar.api.server.ws.RequestHandler;
 import org.sonar.api.server.ws.Response;
@@ -10,14 +8,9 @@ import org.sonar.api.server.ws.WebService;
 import org.sonar.api.utils.log.Loggers;
 import org.sonarqube.ws.Common;
 import org.sonarqube.ws.Measures;
-import org.sonarqube.ws.Users;
 import org.sonarqube.ws.client.WsClient;
 import org.sonarqube.ws.client.WsClientFactories;
 import org.sonarqube.ws.client.measures.ComponentRequest;
-import org.sonarqube.ws.client.measures.ComponentTreeRequest;
-import org.sonarsource.plugins.dependencies.webapp.util.ClientFactory;
-
-import java.io.IOException;
 
 public class GetDependenciesHandler implements RequestHandler {
 
@@ -50,6 +43,7 @@ public class GetDependenciesHandler implements RequestHandler {
 
         Loggers.get(getClass()).info(Boolean.toString(measures.hasMetrics()));
         Loggers.get(getClass()).info(measures.getComponent().getKey());
+        Loggers.get(getClass()).info(measures.getAllFields().toString());
         Loggers.get(getClass()).info(request.getParam("componentKey").getValue());
 
         Common.Metric dependencies = null;
