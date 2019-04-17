@@ -38,7 +38,7 @@ public class GetDependenciesHandler implements RequestHandler {
     }
 
     @Override
-    public void handle(Request request, Response response) throws IOException, Descriptors.DescriptorValidationException {
+    public void handle(Request request, Response response) {
         WsClient client = WsClientFactories.getLocal().newClient(request.localConnector());
 
         ComponentRequest componentRequest = new ComponentRequest()
@@ -54,6 +54,8 @@ public class GetDependenciesHandler implements RequestHandler {
                 Loggers.get(getClass()).info(metric.getBestValue());
                 dependencies = metric;
             }
+            Loggers.get(getClass()).info(metric.getName());
+            Loggers.get(getClass()).info(metric.getKey());
         }
 
         response.newJsonWriter()
