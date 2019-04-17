@@ -79,6 +79,7 @@
     ]
   },
   "dependencies": {
+    "react-d3-graph": "^2.0.1",
     "react-graph-vis": "^1.0.2"
   }
 }

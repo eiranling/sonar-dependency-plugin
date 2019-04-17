@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Graph from 'react-graph-vis';
+import Graph from 'react-d3-graph';
 
 class DependencyGraph extends React.PureComponent {
 

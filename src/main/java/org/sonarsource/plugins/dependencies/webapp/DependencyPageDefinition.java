@@ -6,10 +6,8 @@ import org.sonar.api.web.page.PageDefinition;
 
 public class DependencyPageDefinition implements PageDefinition {
 
-    public static final String PARAM_CLASS_NAME = "className";
-
     public void define(Context context) {
         context.addPage(Page.builder("dependencies/graph")
-        .setName("Dependencies").setScope(Page.Scope.COMPONENT).build());
+        .setName("Dependency Graph").setScope(Page.Scope.COMPONENT).setComponentQualifiers(Page.Qualifier.PROJECT).build());
     }
 }
