@@ -48,6 +48,8 @@ public class GetDependenciesHandler implements RequestHandler {
         Measures.ComponentWsResponse measures = client.measures()
                 .component(componentRequest);
 
+        Loggers.get(getClass()).info(Boolean.toString(measures.hasMetrics()));
+
         Common.Metric dependencies = null;
         for (Common.Metric metric : measures.getMetrics().getMetricsList()) {
             if (metric.getKey().equals("dependencies")) {
