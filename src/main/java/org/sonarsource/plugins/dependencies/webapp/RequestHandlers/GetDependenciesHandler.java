@@ -42,29 +42,17 @@ public class GetDependenciesHandler implements RequestHandler {
         Measures.ComponentWsResponse measures = client.measures()
                 .component(componentRequest);
 
-        Loggers.get(getClass()).info(Boolean.toString(measures.hasMetrics()));
-        Loggers.get(getClass()).info(measures.getComponent().getKey());
-        Loggers.get(getClass()).info(measures.getField(measures.getDescriptorForType().findFieldByName("value")).toString());
-        Loggers.get(getClass()).info(request.getParam("componentKey").getValue());
-
-        Common.Metric dependencies = null;
-        for (Common.Metric metric : measures.getMetrics().getMetricsList()) {
-            if (metric.getKey().equals("dependencies")) {
-                Loggers.get(getClass()).info(metric.getBestValue());
-                dependencies = metric;
+        String dependencies = "";
+        for (Measures.Measure measure  : measures.getComponent().getMeasuresList()) {
+            if (measure.getComponent().equals("dependencies")) {
+                dependencies = measure.getValue();
             }
-            Loggers.get(getClass()).info(metric.getName());
-            Loggers.get(getClass()).info(metric.getKey());
         }
 
         response.newJsonWriter()
                 .beginObject()
                 .prop("componentKey", request.mandatoryParam("componentKey"))
-                .prop("bestVal", dependencies.getBestValue())
-                .prop("worstVal", dependencies.getWorstValue())
-                .prop("description", dependencies.getDescription())
-                .prop("allFieldsKey", dependencies.getAllFields().keySet().toString())
-                .prop("allFieldsVal", dependencies.getAllFields().values().toString())
+                .prop("dependencies", dependencies)
                 .endObject()
                 .close();
     }
