@@ -1,6 +1,7 @@
 package org.sonarsource.plugins.dependencies.webapp.RequestHandlers;
 
 import com.google.common.collect.Lists;
+import com.google.protobuf.Descriptors;
 import okhttp3.OkHttpClient;
 import org.sonar.api.server.ws.Request;
 import org.sonar.api.server.ws.RequestHandler;
@@ -37,7 +38,7 @@ public class GetDependenciesHandler implements RequestHandler {
     }
 
     @Override
-    public void handle(Request request, Response response) throws IOException {
+    public void handle(Request request, Response response) throws IOException, Descriptors.DescriptorValidationException {
         WsClient client = WsClientFactories.getLocal().newClient(request.localConnector());
 
         ComponentRequest componentRequest = new ComponentRequest()
@@ -47,18 +48,22 @@ public class GetDependenciesHandler implements RequestHandler {
         Measures.ComponentWsResponse measures = client.measures()
                 .component(componentRequest);
 
-        String dependencies = "";
+        Common.Metric dependencies = null;
         for (Common.Metric metric : measures.getMetrics().getMetricsList()) {
             if (metric.getKey().equals("dependencies")) {
                 Loggers.get(getClass()).info(metric.getBestValue());
-                dependencies = metric.getBestValue();
+                dependencies = metric;
             }
         }
 
         response.newJsonWriter()
                 .beginObject()
                 .prop("componentKey", request.mandatoryParam("componentKey"))
-                .prop("dependencies", dependencies)
+                .prop("bestVal", dependencies.getBestValue())
+                .prop("worstVal", dependencies.getWorstValue())
+                .prop("description", dependencies.getDescription())
+                .prop("allFieldsKey", dependencies.getAllFields().keySet().toString())
+                .prop("allFieldsVal", dependencies.getAllFields().values().toString())
                 .endObject()
                 .close();
     }
