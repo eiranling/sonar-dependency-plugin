@@ -38,6 +38,9 @@ public class ListDependenciesHandler implements RequestHandler {
 
         ComponentTreeRequest treeRequest = new ComponentTreeRequest()
                 .setComponent(request.getParam("baseComponentKey").getValue())
+                .setQ(request.getParam("q").getValue())
+                .setP(request.getParam("p").getValue())
+                .setPs(request.getParam("ps").getValue())
                 .setMetricKeys(Lists.newArrayList("dependencies"));
 
         Measures.ComponentTreeWsResponse treeResponse = client.measures().componentTree(treeRequest);
