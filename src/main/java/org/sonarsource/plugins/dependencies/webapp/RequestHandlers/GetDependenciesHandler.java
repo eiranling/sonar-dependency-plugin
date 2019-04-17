@@ -9,6 +9,7 @@ import org.sonar.api.server.ws.RequestHandler;
 import org.sonar.api.server.ws.Response;
 import org.sonar.api.server.ws.WebService;
 import org.sonarsource.plugins.dependencies.webapp.sonarapi.requestors.ComponentTreeMeasuresRequestBuilder;
+import org.sonarsource.plugins.dependencies.webapp.util.ClientFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,8 +20,8 @@ public class GetDependenciesHandler implements RequestHandler {
 
     private OkHttpClient client;
 
-    public GetDependenciesHandler(OkHttpClient client) {
-        this.client = client;
+    public GetDependenciesHandler(ClientFactory clientFactory) {
+        this.client = clientFactory.generate();
     }
 
     public void define(WebService.NewController controller) {

@@ -9,7 +9,7 @@ import java.io.IOException;
 
 @ServerSide
 public class ClientFactory {
-    public static OkHttpClient generate() {
+    public OkHttpClient generate() {
         return new OkHttpClient.Builder().build();
     }
 }
