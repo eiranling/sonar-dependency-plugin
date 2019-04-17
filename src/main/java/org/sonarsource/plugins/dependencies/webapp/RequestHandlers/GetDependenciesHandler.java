@@ -1,29 +1,28 @@
 package org.sonarsource.plugins.dependencies.webapp.RequestHandlers;
 
-import okhttp3.HttpUrl;
+import com.google.common.collect.Lists;
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
-import org.sonar.api.internal.google.gson.stream.JsonReader;
 import org.sonar.api.server.ws.Request;
 import org.sonar.api.server.ws.RequestHandler;
 import org.sonar.api.server.ws.Response;
 import org.sonar.api.server.ws.WebService;
 import org.sonar.api.utils.log.Loggers;
-import org.sonarsource.plugins.dependencies.webapp.sonarapi.requestors.ComponentTreeMeasuresRequestBuilder;
+import org.sonarqube.ws.Common;
+import org.sonarqube.ws.Measures;
+import org.sonarqube.ws.Users;
+import org.sonarqube.ws.client.WsClient;
+import org.sonarqube.ws.client.WsClientFactories;
+import org.sonarqube.ws.client.measures.ComponentRequest;
+import org.sonarqube.ws.client.measures.ComponentTreeRequest;
 import org.sonarsource.plugins.dependencies.webapp.util.ClientFactory;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class GetDependenciesHandler implements RequestHandler {
 
-    private OkHttpClient client;
 
+    public GetDependenciesHandler() {
 
-    public GetDependenciesHandler(ClientFactory clientFactory) {
-        this.client = clientFactory.generate();
     }
 
     public void define(WebService.NewController controller) {
@@ -39,26 +38,19 @@ public class GetDependenciesHandler implements RequestHandler {
 
     @Override
     public void handle(Request request, Response response) throws IOException {
-        request.getParam("componentKey");
+        WsClient client = WsClientFactories.getLocal().newClient(request.localConnector());
 
-        HttpUrl baseUrl = HttpUrl.parse(request.getPath());
+        ComponentRequest componentRequest = new ComponentRequest()
+                .setComponent(request.getParam("componentKey").getValue())
+                .setMetricKeys(Lists.newArrayList("dependencies"));
 
-        if (baseUrl == null) {
-            Loggers.get(getClass()).error(request.getPath() + " cannot be parsed");
-            throw new MalformedURLException();
-        }
+        Measures.ComponentWsResponse measures = client.measures()
+                .component(componentRequest);
 
-        okhttp3.Request.Builder metricReqBuilder = new okhttp3.Request.Builder().get();
-
-        okhttp3.Request metricRequest = new ComponentTreeMeasuresRequestBuilder(new okhttp3.HttpUrl.Builder()
-                .scheme(baseUrl.scheme()).host(baseUrl.host()).port(baseUrl.port())
-                ).build(metricReqBuilder);
-
-        okhttp3.Response metricResponse = client.newCall(metricRequest).execute();
-        ResponseBody body = metricResponse.body();
-        if (body == null) {
-            response.newJsonWriter().beginObject().prop("error", "Whoops, something went wrong fetching metrics.").endObject().close();
-            return;
+        for (Common.Metric metric : measures.getMetrics().getMetricsList()) {
+            if (metric.getKey().equals("dependencies")) {
+                Loggers.get(getClass()).info(metric.getBestValue());
+            }
         }
 
         response.newJsonWriter()
