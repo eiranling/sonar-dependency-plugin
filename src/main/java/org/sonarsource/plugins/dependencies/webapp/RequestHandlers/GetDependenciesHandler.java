@@ -52,6 +52,7 @@ public class GetDependenciesHandler implements RequestHandler {
         response.newJsonWriter()
                 .beginObject()
                 .prop("componentKey", request.mandatoryParam("componentKey"))
+                .prop("name", measures.getComponent().getName())
                 .prop("dependencies", dependencies)
                 .endObject()
                 .close();
