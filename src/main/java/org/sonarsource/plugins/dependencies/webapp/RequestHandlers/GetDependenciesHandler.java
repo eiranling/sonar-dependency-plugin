@@ -1,6 +1,7 @@
 package org.sonarsource.plugins.dependencies.webapp.RequestHandlers;
 
 import com.google.common.collect.Lists;
+import com.google.protobuf.Descriptors;
 import org.sonar.api.server.ws.Request;
 import org.sonar.api.server.ws.RequestHandler;
 import org.sonar.api.server.ws.Response;
@@ -43,7 +44,7 @@ public class GetDependenciesHandler implements RequestHandler {
 
         Loggers.get(getClass()).info(Boolean.toString(measures.hasMetrics()));
         Loggers.get(getClass()).info(measures.getComponent().getKey());
-        Loggers.get(getClass()).info(measures.getAllFields().toString());
+        Loggers.get(getClass()).info(measures.getField(measures.getDescriptorForType().findFieldByName("measures")).toString());
         Loggers.get(getClass()).info(request.getParam("componentKey").getValue());
 
         Common.Metric dependencies = null;
