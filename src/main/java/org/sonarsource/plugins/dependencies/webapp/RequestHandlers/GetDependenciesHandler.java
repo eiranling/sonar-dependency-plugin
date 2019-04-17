@@ -44,7 +44,7 @@ public class GetDependenciesHandler implements RequestHandler {
 
         String dependencies = "";
         for (Measures.Measure measure  : measures.getComponent().getMeasuresList()) {
-            if (measure.getComponent().equals("dependencies")) {
+            if (measure.getMetric().equals("dependencies")) {
                 dependencies = measure.getValue();
             }
         }
