@@ -50,6 +50,7 @@ public class ListDependenciesHandler implements RequestHandler {
             writer.beginObject()
                     .prop("componentId", component.getId())
                     .prop("componentKey", component.getKey())
+                    .prop("path", component.getPath())
                     .prop("name", component.getName());
             for (Measures.Measure measure : component.getMeasuresList()) {
                 writer.prop(measure.getMetric(), measure.getValue());
