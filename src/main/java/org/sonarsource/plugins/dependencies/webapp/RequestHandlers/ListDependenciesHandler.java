@@ -46,17 +46,16 @@ public class ListDependenciesHandler implements RequestHandler {
                 .name("dependencies")
                 .beginArray();
 
-//        for (Measures.Component component : treeResponse.getComponentsList()) {
-//            writer.beginObject()
-//                    .name("component")
-//                    .prop("componentId", component.getId())
-//                    .prop("componentKey", component.getKey())
-//                    .prop("name", component.getName());
-//            for (Measures.Measure measure : component.getMeasuresList()) {
-//                writer.prop(measure.getMetric(), measure.getValue());
-//            }
-//            writer.endObject();
-//        }
+        for (Measures.Component component : treeResponse.getComponentsList()) {
+            writer.beginObject()
+                    .prop("componentId", component.getId())
+                    .prop("componentKey", component.getKey())
+                    .prop("name", component.getName());
+            for (Measures.Measure measure : component.getMeasuresList()) {
+                writer.prop(measure.getMetric(), measure.getValue());
+            }
+            writer.endObject();
+        }
 
         writer.endArray().endObject().close();
     }
