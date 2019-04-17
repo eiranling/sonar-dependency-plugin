@@ -8,6 +8,7 @@ import org.sonar.api.server.ws.Request;
 import org.sonar.api.server.ws.RequestHandler;
 import org.sonar.api.server.ws.Response;
 import org.sonar.api.server.ws.WebService;
+import org.sonar.api.utils.log.Loggers;
 import org.sonarsource.plugins.dependencies.webapp.sonarapi.requestors.ComponentTreeMeasuresRequestBuilder;
 import org.sonarsource.plugins.dependencies.webapp.util.ClientFactory;
 
@@ -42,7 +43,10 @@ public class GetDependenciesHandler implements RequestHandler {
 
         HttpUrl baseUrl = HttpUrl.parse(request.getPath());
 
-        if (baseUrl == null) throw new MalformedURLException();
+        if (baseUrl == null) {
+            Loggers.get(getClass()).error(request.getPath() + " cannot be parsed");
+            throw new MalformedURLException();
+        }
 
         okhttp3.Request.Builder metricReqBuilder = new okhttp3.Request.Builder().get();
 
