@@ -47,15 +47,18 @@ public class GetDependenciesHandler implements RequestHandler {
         Measures.ComponentWsResponse measures = client.measures()
                 .component(componentRequest);
 
+        String dependencies = "";
         for (Common.Metric metric : measures.getMetrics().getMetricsList()) {
             if (metric.getKey().equals("dependencies")) {
                 Loggers.get(getClass()).info(metric.getBestValue());
+                dependencies = metric.getBestValue();
             }
         }
 
         response.newJsonWriter()
                 .beginObject()
                 .prop("componentKey", request.mandatoryParam("componentKey"))
+                .prop("dependencies", dependencies)
                 .endObject()
                 .close();
     }
