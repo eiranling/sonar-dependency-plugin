@@ -28,7 +28,7 @@ export default class DependencyGraph extends React.PureComponent {
     render() {
         return (
             <div id="dependencyGraph" className="page page-limited sanity-check">
-                <Graph id="depGraph" graph={this.state.graph} config={this.state.config}/>
+                <Graph id="depGraph" data={this.state.graph} config={this.state.config}/>
             </div>
         );
     };
