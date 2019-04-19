@@ -37,11 +37,13 @@ public class ListDependenciesHandler implements RequestHandler {
         WsClient client = WsClientFactories.getLocal().newClient(request.localConnector());
 
         ComponentTreeRequest treeRequest = new ComponentTreeRequest()
-                .setComponent(request.getParam("baseComponentKey").getValue())
-                .setQ(request.getParam("q").getValue())
-                .setP(request.getParam("p").getValue())
-                .setPs(request.getParam("ps").getValue())
-                .setMetricKeys(Lists.newArrayList("dependencies"));
+                .setComponent(request.getParam("baseComponentKey").getValue());
+
+
+        if (request.getParam("q").isPresent()) treeRequest.setQ(request.getParam("q").getValue());
+        if (request.getParam("p").isPresent()) treeRequest.setP(request.getParam("p").getValue());
+        if (request.getParam("ps").isPresent()) treeRequest.setPs(request.getParam("ps").getValue());
+        treeRequest.setMetricKeys(Lists.newArrayList("dependencies"));
 
         Measures.ComponentTreeWsResponse treeResponse = client.measures().componentTree(treeRequest);
 
