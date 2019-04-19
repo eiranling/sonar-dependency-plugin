@@ -1,6 +1,7 @@
 import React from 'react';
 import Graph from 'react-graph-vis';
 import {getAllDependencies} from "../api-dependency";
+import '../style.css'
 
 export default class DependencyGraph extends React.PureComponent {
 
@@ -73,7 +74,7 @@ export default class DependencyGraph extends React.PureComponent {
         }
 
         return (
-            <div className="page">
+            <div className="page full">
                 <Graph id='dep-graph' graph={this.state.graph} options={this.state.config}/>
                 <button onClick={changeState}>Refresh</button>
             </div>
