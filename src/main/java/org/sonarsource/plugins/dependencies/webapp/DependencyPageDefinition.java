@@ -8,6 +8,7 @@ public class DependencyPageDefinition implements PageDefinition {
 
     public void define(Context context) {
         context.addPage(Page.builder("dependencies/graph")
-        .setName("Dependency Graph").setScope(Page.Scope.COMPONENT).setComponentQualifiers(Page.Qualifier.PROJECT).build());
+        .setName("Dependency Graph").setScope(Page.Scope.COMPONENT)
+                .setComponentQualifiers(Page.Qualifier.PROJECT).build());
     }
 }
