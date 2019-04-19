@@ -11,7 +11,7 @@ public class DependencyPageDefinition implements PageDefinition {
         .setName("Dependency Graph").setScope(Page.Scope.COMPONENT)
                 .setComponentQualifiers(Page.Qualifier.PROJECT).build());
 
-        context.addPage(Page.builder("dependencies/measures-history")
+        context.addPage(Page.builder("dependencies/measures_history")
                 .setName("Measures History").setScope(Page.Scope.COMPONENT)
                 .setComponentQualifiers(Page.Qualifier.PROJECT).build());
     }
