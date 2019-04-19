@@ -39,8 +39,8 @@
     "strip-ansi": "3.0.1",
     "style-loader": "0.13.0",
     "webpack": "1.13.2",
-    "webpack-dev-server": "1.16.1",
-    "react-d3-graph": "^2.0.1"
+    "webpack-dev-server": "1.16.1"
+
   },
   "scripts": {
     "build": "node scripts/build.js",
@@ -78,5 +78,9 @@
       "<rootDir>/scripts",
       "<rootDir>/conf"
     ]
+  },
+  "dependencies": {
+    "react-d3-graph": "^2.0.1",
+    "d3": "^5.5.0"
   }
 }
