@@ -26,6 +26,7 @@ export default class DependencyGraph extends React.PureComponent {
         return (
             <div className="page page-limited">
                 <Graph id='dep-graph' data={this.state.graph} config={this.state.config}/>
+                <button onClick={this.state.graph.nodes.concat({ id: "New"})}>Refresh</button>
             </div>
         );
     };
