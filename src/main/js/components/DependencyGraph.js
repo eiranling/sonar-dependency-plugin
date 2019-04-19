@@ -39,7 +39,7 @@ export default class DependencyGraph extends React.PureComponent {
 
         return (
             <div className="page">
-                <Graph id='dep-graph' graph={this.state.graph} options={config}/>
+                <Graph id='dep-graph' graph={this.state.graph} options={this.state.config}/>
                 <button onClick={changeState}>Refresh</button>
             </div>
         );
