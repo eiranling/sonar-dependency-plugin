@@ -38,7 +38,7 @@ export default class DependencyGraph extends React.PureComponent {
 
                     },
                     barnesHut: {
-                        gravitationalConstant: -500,
+                        gravitationalConstant: 0,
                         centralGravity: 0,
                         springConstant: 0,
                         damping: 0,
