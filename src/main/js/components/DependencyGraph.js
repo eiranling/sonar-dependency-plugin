@@ -1,5 +1,5 @@
 import React from 'react';
-import Graph from 'react-d3-graph';
+import Graph from 'react-graph-vis';
 
 export default class DependencyGraph extends React.PureComponent {
 
@@ -8,14 +8,14 @@ export default class DependencyGraph extends React.PureComponent {
         this.state = {
             graph: {
                 nodes: [
-                    {id: "Controller"},
-                    {id: "Model"},
-                    {id: "View"}
+                    {id: "Controller", label: "Controller"},
+                    {id: "Model", label: "Model"},
+                    {id: "View", label: "View"}
                 ],
-                links: [
-                    {source: "Controller", target: "Model"},
-                    {source: "View", target: "Controller"},
-                    {source: "Model", target: "View"}
+                edges: [
+                    {from: "Controller", to: "Model"},
+                    {from: "View", to: "Controller"},
+                    {from: "Model", to: "View"}
                 ]
             },
             config: [
@@ -34,7 +34,7 @@ export default class DependencyGraph extends React.PureComponent {
 
         return (
             <div className="page page-limited">
-                <Graph id='dep-graph' data={this.state.graph} config={this.state.config}/>
+                <Graph id='dep-graph' graph={this.state.graph}/>
                 <button onClick={changeState}>Refresh</button>
             </div>
         );
