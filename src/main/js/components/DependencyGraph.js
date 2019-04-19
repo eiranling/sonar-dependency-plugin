@@ -41,7 +41,7 @@ export default class DependencyGraph extends React.PureComponent {
                         gravitationalConstant: 9.8,
                         centralGravity: 0.2,
                         springConstant: 100000,
-                        damping: 0,
+                        damping: 10,
                         avoidOverlap: true
                     }
                 }
