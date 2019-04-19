@@ -4162,6 +4162,11 @@ react-addons-test-utils@15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react-addons-test-utils/-/react-addons-test-utils-15.6.2.tgz#c12b6efdc2247c10da7b8770d185080a7b047156"
 
+react-d3-graph@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-d3-graph/-/react-d3-graph-2.0.1.tgz#956d43b498071f055301f0db58ec1780f0d850ec"
+  integrity sha512-gRU2eVjbob0rM4Y5f7YcYuul3bYRSbiW2e1LNU9ui6rmvFI7L+2SKLt4JMJDAuMbCJNN2g4h4Kndnh15sYYJPw==
+
 react-deep-force-update@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.1.1.tgz#bcd31478027b64b3339f108921ab520b4313dc2c"
