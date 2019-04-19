@@ -20,6 +20,7 @@ const output = path.join(__dirname, '../../target/classes/static');
 
 module.exports = {
   entry: {
+    'graph': ['./src/main/js/app-dependencies_graph.js'],
     'measures_history': ['./src/main/js/app-measures_history.js'],
     'sanity_check': ['./src/main/js/app-sanity_check.js'],
   },
