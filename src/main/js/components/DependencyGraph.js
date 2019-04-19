@@ -39,12 +39,13 @@ export default class DependencyGraph extends React.PureComponent {
             let edgeList = [];
             destinations.forEach((item) => {
                 edgeList.concat([{ from: from, to: item }])
-            })
+            });
             return edgeList;
         }
 
         getAllDependencies(this.props.project).then((valuesReturned) => {
             valuesReturned.forEach((component) => {
+                console.log(component);
                const nodes = this.state.graph.nodes.slice();
                const edges = this.state.graph.edges.slice();
                this.state.graph = {
