@@ -18,9 +18,14 @@ export default class DependencyGraph extends React.PureComponent {
                     {from: "Model", to: "View"}
                 ]
             },
-            config: [
-                {}
-            ]
+            config: {
+                autoResize: true,
+                height: '100%',
+                width: '100%',
+                physics: {
+                    enabled: false
+                }
+            }
         };
     }
 
@@ -33,8 +38,8 @@ export default class DependencyGraph extends React.PureComponent {
         }
 
         return (
-            <div className="page page-limited">
-                <Graph id='dep-graph' graph={this.state.graph}/>
+            <div className="page">
+                <Graph id='dep-graph' graph={this.state.graph} options={config}/>
                 <button onClick={changeState}>Refresh</button>
             </div>
         );
