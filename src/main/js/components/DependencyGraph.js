@@ -54,11 +54,14 @@ export default class DependencyGraph extends React.PureComponent {
                const nodes = this.state.graph.nodes.slice();
                const edges = this.state.graph.edges.slice();
                this.setState({
-                   nodes: nodes.concat([{
-                       id: component.componentKey,
-                       label: component.name
-                   }]),
-                   edges: edges.concat([generateEdgeList(component.componentKey, generateDependencyList(component.dependencies))])
+                   graph: {
+                       nodes: nodes.concat([{
+                           id: component.componentKey,
+                           label: component.name
+                       }]),
+                       edges: edges.concat([generateEdgeList(component.componentKey, generateDependencyList(component.dependencies))])
+                   },
+                   config: this.state.config
                });
             });
 
