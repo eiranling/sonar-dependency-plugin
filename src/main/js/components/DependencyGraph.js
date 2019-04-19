@@ -1,5 +1,6 @@
 import React from 'react';
 import Graph from 'react-graph-vis';
+import {getAllDependencies} from "../api-dependency";
 
 export default class DependencyGraph extends React.PureComponent {
 
@@ -27,6 +28,35 @@ export default class DependencyGraph extends React.PureComponent {
                 }
             }
         };
+    }
+
+    componentDidMount() {
+        function generateDependencyList(dependencies) {
+            return dependencies.split(';');
+        }
+
+        function generateEdgeList(from, destinations) {
+            let edgeList = [];
+            destinations.forEach((item) => {
+                edgeList.concat([{ from: from, to: item }])
+            })
+            return edgeList;
+        }
+
+        getAllDependencies(this.props.project).then((valuesReturned) => {
+            valuesReturned.forEach((component) => {
+               const nodes = this.state.graph.nodes.slice();
+               const edges = this.state.graph.edges.slice();
+               this.state.graph = {
+                   nodes: nodes.concat([{
+                       id: component.componentKey,
+                       label: component.name
+                   }]),
+                   edges: edges.concat([generateEdgeList(component.componentKey, generateDependencyList(component.dependencies))])
+               }
+            });
+
+        });
     }
 
     render() {
