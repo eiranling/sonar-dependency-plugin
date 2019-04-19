@@ -6,6 +6,7 @@ export function getAllDependencies(project) {
         p: 1,
         ps: 500
     }).then((response) => {
+        console.log(response);
         return response.dependencies;
     })
 }
