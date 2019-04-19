@@ -32,7 +32,11 @@ export default class DependencyGraph extends React.PureComponent {
 
     componentDidMount() {
         function generateDependencyList(dependencies) {
-            return dependencies.split(';');
+            if (dependencies !== undefined) {
+                return dependencies.split(';');
+            } else {
+                return [];
+            }
         }
 
         function generateEdgeList(from, destinations) {
