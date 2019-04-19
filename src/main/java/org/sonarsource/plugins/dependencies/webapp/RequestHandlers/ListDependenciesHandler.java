@@ -11,6 +11,8 @@ import org.sonarqube.ws.client.WsClient;
 import org.sonarqube.ws.client.WsClientFactories;
 import org.sonarqube.ws.client.measures.ComponentTreeRequest;
 
+import java.util.Arrays;
+
 public class ListDependenciesHandler implements RequestHandler {
 
     public ListDependenciesHandler() {
@@ -30,6 +32,10 @@ public class ListDependenciesHandler implements RequestHandler {
         action.addPagingParams(100, 500);
         action.addSearchQuery("Class", "name", "path", "componentKey");
 
+        action.createParam("qualifier").setRequired(false)
+                .setDescription("The qualifier for the components to return.")
+                .setExampleValue("FIL");
+
     }
 
     @Override
@@ -43,6 +49,7 @@ public class ListDependenciesHandler implements RequestHandler {
         if (request.getParam("q").isPresent()) treeRequest.setQ(request.getParam("q").getValue());
         if (request.getParam("p").isPresent()) treeRequest.setP(request.getParam("p").getValue());
         if (request.getParam("ps").isPresent()) treeRequest.setPs(request.getParam("ps").getValue());
+        if (request.getParam("qualifier").isPresent()) treeRequest.setQualifiers(Arrays.asList(request.getParam("qualifier").getValue().split(",")));
         treeRequest.setMetricKeys(Lists.newArrayList("dependencies"));
 
         Measures.ComponentTreeWsResponse treeResponse = client.measures().componentTree(treeRequest);

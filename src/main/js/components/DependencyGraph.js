@@ -25,7 +25,17 @@ export default class DependencyGraph extends React.PureComponent {
                 height: '100%',
                 width: '100%',
                 physics: {
-                    enabled: false
+                    enabled: true,
+                    stabilization: {
+                        enabled: true,
+                        iterations: 3,
+                        fit: false
+                    },
+                    repulsion: {
+                        nodeDistance: 10,
+                        centralGravity: 0,
+                        springConstant: 0
+                    }
                 }
             }
         };
