@@ -4,7 +4,7 @@ import DependencyGraph from "./components/DependencyGraph";
 import VersionsMeasuresHistoryApp from "./components/VersionsMeasuresHistoryApp";
 import './style.css';
 
-window.registerExtension("dependencies/graph", options => {
+window.registerExtension('dependencies/graph', options => {
 
     const { el } = options;
 
