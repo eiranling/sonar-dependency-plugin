@@ -31,19 +31,17 @@ export default class DependencyGraph extends React.PureComponent {
                         iterations: 3,
                         fit: false
                     },
-                    repulsion: {
-                        nodeDistance: 10,
-                        centralGravity: 0,
-                        springConstant: 10000,
-
-                    },
                     barnesHut: {
-                        gravitationalConstant: 9.8,
-                        centralGravity: 0,
-                        springConstant: 100000,
-                        damping: 10,
-                        avoidOverlap: true
-                    }
+                        gravitationalConstant: -22500,
+                        centralGravity: 3.65,
+                        springLength: 70,
+                        springConstant: 0,
+                        damping: 1
+                    },
+                    maxVelocity: 150,
+                    minVelocity: 1,
+                    timestep: 0.22
+
                 }
             }
         };
