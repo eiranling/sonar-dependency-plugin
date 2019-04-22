@@ -12,7 +12,7 @@ export function getAllDependencies(project, ) {
 }
 
 export function getDeclaredClasses(project) {
-    return getJSON('api/declared_classes/list', {
+    return getJSON('../../api/declared_classes/list', {
         baseComponentKey: project.key,
         p: 1,
         ps: 500,
