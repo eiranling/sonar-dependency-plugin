@@ -5,6 +5,7 @@ import org.sonar.api.server.ws.Request;
 import org.sonar.api.server.ws.RequestHandler;
 import org.sonar.api.server.ws.Response;
 import org.sonar.api.server.ws.WebService;
+import org.sonar.api.utils.log.Loggers;
 import org.sonar.api.utils.text.JsonWriter;
 import org.sonarqube.ws.Measures;
 import org.sonarqube.ws.client.measures.ComponentTreeRequest;
@@ -54,6 +55,7 @@ public abstract class ListRequestHandler implements RequestHandler {
      * @param name name
      */
     protected void constructResponse(Response response, Measures.ComponentTreeWsResponse treeResponse, String name) {
+        Loggers.get(getClass()).info("Constructing response");
         // Writes the JSON object to the response object
         JsonWriter writer = response.newJsonWriter().beginObject()
                 .name(name)

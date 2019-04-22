@@ -18,10 +18,10 @@ public class MeasuresComponentTreeRequestor extends LocalApiCaller {
         ComponentTreeRequest request = new ComponentTreeRequest();
         request.setComponent(params.get("baseComponentKey"));
         request.setMetricKeys(Collections.singletonList(params.get("metricKeys")));
-        request.setP(params.getOrDefault("p", ""));
-        request.setPs(params.getOrDefault("ps", ""));
-        request.setQ(params.getOrDefault("q", ""));
-        request.setQualifiers(Collections.singletonList(params.getOrDefault("qualifiers", "")));
+        request.setP(params.getOrDefault("p", null));
+        request.setPs(params.getOrDefault("ps", null));
+        request.setQ(params.getOrDefault("q", null));
+        request.setQualifiers(Collections.singletonList(params.getOrDefault("qualifiers", null)));
 
         return client.measures().componentTree(request);
     }
