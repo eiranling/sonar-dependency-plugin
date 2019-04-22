@@ -19,7 +19,7 @@ public class ListDeclaredClassesHandler extends ListRequestHandler {
     @Override
     public void handle(Request request, Response response) throws Exception {
         Map<String, String> params = handleParams(request);
-        params.put("metricKeys", "dependencies"); // We only care about dependencies here
+        params.put("metricKeys", "declared_classes"); // We only care about dependencies here
 
         // makes the request to the web API to retrieve
         // the dependencies metric stored in the measures/component_tree endpoint.

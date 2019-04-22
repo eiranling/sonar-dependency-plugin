@@ -24,7 +24,7 @@ public class GetDeclaredClassesHandler extends GetRequestHandler {
 
         String dependencies = "";
         for (Measures.Measure measure  : measures.getComponent().getMeasuresList()) {
-            if (measure.getMetric().equals("dependencies")) {
+            if (measure.getMetric().equals("declared_classes")) {
                 dependencies = measure.getValue();
             }
         }
@@ -33,7 +33,7 @@ public class GetDeclaredClassesHandler extends GetRequestHandler {
                 .beginObject()
                 .prop("componentKey", request.mandatoryParam("componentKey"))
                 .prop("name", measures.getComponent().getName())
-                .prop("dependencies", dependencies)
+                .prop("declared_classes", dependencies)
                 .endObject()
                 .close();
     }
