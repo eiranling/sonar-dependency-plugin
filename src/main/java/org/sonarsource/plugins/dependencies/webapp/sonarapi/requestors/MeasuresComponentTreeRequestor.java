@@ -6,7 +6,6 @@ import org.sonarqube.ws.Measures;
 import org.sonarqube.ws.client.WsClient;
 import org.sonarqube.ws.client.measures.ComponentTreeRequest;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 

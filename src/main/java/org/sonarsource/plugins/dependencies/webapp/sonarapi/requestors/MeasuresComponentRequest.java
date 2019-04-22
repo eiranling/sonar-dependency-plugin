@@ -4,7 +4,6 @@ import org.sonar.api.server.ServerSide;
 import org.sonar.api.server.ws.LocalConnector;
 import org.sonarqube.ws.Measures;
 import org.sonarqube.ws.client.WsClient;
-import org.sonarqube.ws.client.WsClientFactories;
 import org.sonarqube.ws.client.measures.ComponentRequest;
 
 import java.util.List;

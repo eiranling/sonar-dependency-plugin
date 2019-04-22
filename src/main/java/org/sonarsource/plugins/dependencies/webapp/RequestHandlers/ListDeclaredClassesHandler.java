@@ -1,10 +1,8 @@
 package org.sonarsource.plugins.dependencies.webapp.RequestHandlers;
 
 import org.sonar.api.server.ws.Request;
-import org.sonar.api.server.ws.RequestHandler;
 import org.sonar.api.server.ws.Response;
 import org.sonar.api.server.ws.WebService;
-import org.sonar.api.utils.text.JsonWriter;
 import org.sonarqube.ws.Measures;
 import org.sonarsource.plugins.dependencies.webapp.sonarapi.requestors.MeasuresComponentTreeRequestor;
 

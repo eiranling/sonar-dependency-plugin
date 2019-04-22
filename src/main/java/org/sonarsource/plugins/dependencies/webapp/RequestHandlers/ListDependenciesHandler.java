@@ -1,19 +1,11 @@
 package org.sonarsource.plugins.dependencies.webapp.RequestHandlers;
 
-import com.google.common.collect.Lists;
 import org.sonar.api.server.ws.Request;
-import org.sonar.api.server.ws.RequestHandler;
 import org.sonar.api.server.ws.Response;
 import org.sonar.api.server.ws.WebService;
-import org.sonar.api.utils.text.JsonWriter;
 import org.sonarqube.ws.Measures;
-import org.sonarqube.ws.client.WsClient;
-import org.sonarqube.ws.client.WsClientFactories;
-import org.sonarqube.ws.client.measures.ComponentTreeRequest;
 import org.sonarsource.plugins.dependencies.webapp.sonarapi.requestors.MeasuresComponentTreeRequestor;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 
 public class ListDependenciesHandler extends ListRequestHandler {

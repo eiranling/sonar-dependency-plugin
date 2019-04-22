@@ -47,10 +47,16 @@ public abstract class ListRequestHandler implements RequestHandler {
         return result;
     }
 
+    /**
+     * Constructs a generic response from a tree response
+     * @param response response to write the json to
+     * @param treeResponse response back from the server
+     * @param name name
+     */
     protected void constructResponse(Response response, Measures.ComponentTreeWsResponse treeResponse, String name) {
         // Writes the JSON object to the response object
         JsonWriter writer = response.newJsonWriter().beginObject()
-                .name("dependencies")
+                .name(name)
                 .beginArray();
 
         for (Measures.Component component : treeResponse.getComponentsList()) {

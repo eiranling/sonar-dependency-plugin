@@ -1,17 +1,8 @@
 package org.sonarsource.plugins.dependencies.webapp.RequestHandlers;
 
-import com.google.common.collect.Lists;
-import com.google.protobuf.Descriptors;
 import org.sonar.api.server.ws.Request;
-import org.sonar.api.server.ws.RequestHandler;
 import org.sonar.api.server.ws.Response;
-import org.sonar.api.server.ws.WebService;
-import org.sonar.api.utils.log.Loggers;
-import org.sonarqube.ws.Common;
 import org.sonarqube.ws.Measures;
-import org.sonarqube.ws.client.WsClient;
-import org.sonarqube.ws.client.WsClientFactories;
-import org.sonarqube.ws.client.measures.ComponentRequest;
 import org.sonarsource.plugins.dependencies.webapp.sonarapi.requestors.MeasuresComponentRequest;
 
 import java.util.Collections;
