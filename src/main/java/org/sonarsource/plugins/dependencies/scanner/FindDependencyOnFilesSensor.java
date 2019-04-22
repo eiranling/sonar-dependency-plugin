@@ -24,6 +24,7 @@ public class FindDependencyOnFilesSensor implements Sensor {
     public FindDependencyOnFilesSensor(ClassDependencyService classDependencyService,
                                        DeclaredClassService declaredClassService) {
         this.classDependencyService = classDependencyService;
+        this.declaredClassService = declaredClassService;
     }
 
     public void describe(SensorDescriptor sensorDescriptor) {
