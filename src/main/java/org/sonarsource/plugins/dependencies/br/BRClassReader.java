@@ -8,7 +8,6 @@ import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.scanner.ScannerSide;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 @ScannerSide

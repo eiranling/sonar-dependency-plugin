@@ -41,9 +41,6 @@ public class SamplePlugin implements Plugin {
                 // Other
                 MeasuresComponentRequest.class,
                 MeasuresComponentTreeRequestor.class,
-                GetRequestHandler.class,
-                ListRequestHandler.class,
-                LocalApiCaller.class,
 
                 // Dependency Graph Page
                 DependencyPageDefinition.class

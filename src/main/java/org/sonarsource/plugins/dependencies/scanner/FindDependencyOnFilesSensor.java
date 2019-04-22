@@ -7,8 +7,6 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
-import org.sonarsource.plugins.dependencies.br.BRClassReader;
-import org.sonarsource.plugins.dependencies.br.BRDependencyFinder;
 import org.sonarsource.plugins.dependencies.service.ClassDependencyService;
 import org.sonarsource.plugins.dependencies.service.DeclaredClassService;
 

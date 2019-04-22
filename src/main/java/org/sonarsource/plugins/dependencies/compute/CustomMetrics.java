@@ -5,7 +5,6 @@ import org.sonar.api.measures.Metric;
 import org.sonar.api.measures.Metrics;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class CustomMetrics implements Metrics {

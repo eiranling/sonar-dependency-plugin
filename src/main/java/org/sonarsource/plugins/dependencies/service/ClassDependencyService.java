@@ -1,7 +1,6 @@
 package org.sonarsource.plugins.dependencies.service;
 
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.internal.google.common.collect.ImmutableMap;
 import org.sonar.api.scanner.ScannerSide;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
