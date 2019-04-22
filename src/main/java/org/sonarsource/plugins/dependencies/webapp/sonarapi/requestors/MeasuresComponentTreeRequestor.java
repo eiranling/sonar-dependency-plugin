@@ -21,7 +21,7 @@ public class MeasuresComponentTreeRequestor extends LocalApiCaller {
         request.setP(params.getOrDefault("p", null));
         request.setPs(params.getOrDefault("ps", null));
         request.setQ(params.getOrDefault("q", null));
-        request.setQualifiers(Collections.singletonList(params.getOrDefault("qualifiers", null)));
+        if (params.containsKey("qualifiers")) request.setQualifiers(Collections.singletonList(params.getOrDefault("qualifiers", null)));
 
         return client.measures().componentTree(request);
     }
