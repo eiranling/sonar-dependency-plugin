@@ -7,10 +7,13 @@ import org.sonarsource.plugins.dependencies.compute.CustomMetrics;
 import org.sonarsource.plugins.dependencies.scanner.FindDependencyOnFilesSensor;
 import org.sonarsource.plugins.dependencies.service.ClassDependencyService;
 import org.sonarsource.plugins.dependencies.service.DeclaredClassService;
+import org.sonarsource.plugins.dependencies.webapp.DeclaredClassesWs;
 import org.sonarsource.plugins.dependencies.webapp.DependencyPageDefinition;
 import org.sonarsource.plugins.dependencies.webapp.DependencyWs;
-import org.sonarsource.plugins.dependencies.webapp.RequestHandlers.GetDependenciesHandler;
-import org.sonarsource.plugins.dependencies.webapp.RequestHandlers.ListDependenciesHandler;
+import org.sonarsource.plugins.dependencies.webapp.RequestHandlers.*;
+import org.sonarsource.plugins.dependencies.webapp.sonarapi.requestors.LocalApiCaller;
+import org.sonarsource.plugins.dependencies.webapp.sonarapi.requestors.MeasuresComponentRequest;
+import org.sonarsource.plugins.dependencies.webapp.sonarapi.requestors.MeasuresComponentTreeRequestor;
 
 public class SamplePlugin implements Plugin {
 
@@ -30,6 +33,17 @@ public class SamplePlugin implements Plugin {
                 DependencyWs.class,
                 GetDependenciesHandler.class,
                 ListDependenciesHandler.class,
+
+                DeclaredClassesWs.class,
+                GetDeclaredClassesHandler.class,
+                ListDeclaredClassesHandler.class,
+
+                // Other
+                MeasuresComponentRequest.class,
+                MeasuresComponentTreeRequestor.class,
+                GetRequestHandler.class,
+                ListRequestHandler.class,
+                LocalApiCaller.class,
 
                 // Dependency Graph Page
                 DependencyPageDefinition.class
