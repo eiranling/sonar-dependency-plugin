@@ -1,6 +1,6 @@
 import React from 'react';
 import Graph from 'react-graph-vis';
-import {getAllDependencies} from "../api-dependency";
+import {getAllDependencies, getDeclaredClasses} from "../api-dependency";
 import '../style.css'
 
 export default class DependencyGraph extends React.PureComponent {
@@ -81,6 +81,27 @@ export default class DependencyGraph extends React.PureComponent {
                });
             });
 
+        }).then(() => {
+            getDeclaredClasses(this.props.project).then((valuesReturned) => {
+                const new_edges = this.state.graph.edges.slice();
+                valuesReturned.forEach((component) => {
+                    new_edges.forEach((edge) => {
+                        if (component.declared_classes.contains(edge.from)) {
+                            edge.from = component.name;
+                        }
+                        if (component.declared_classes.contains(edge.to)) {
+                            edge.to = component.name;
+                        }
+                    });
+                });
+                this.setState({
+                    graph: {
+                        nodes: this.state.graph.nodes,
+                        edges: new_edges
+                    },
+                    config: this.state.config
+                });
+            });
         });
     }
 

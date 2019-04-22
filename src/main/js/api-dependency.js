@@ -10,3 +10,14 @@ export function getAllDependencies(project, ) {
         return response.dependencies;
     })
 }
+
+export function getDeclaredClasses(project) {
+    return getJSON('api/declared_classes/get', {
+        baseComponentKey: project.key,
+        p: 1,
+        ps: 500,
+        qualifier: "FIL"
+    }).then((response) => {
+        return response.declaredClasses;
+    })
+}
