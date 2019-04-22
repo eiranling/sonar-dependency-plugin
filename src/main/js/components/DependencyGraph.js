@@ -88,11 +88,13 @@ export default class DependencyGraph extends React.PureComponent {
                 const new_edges = this.state.graph.edges.slice();
                 valuesReturned.forEach((component) => {
                     new_edges.forEach((edge) => {
-                        if (component.declared_classes.contains(edge.from)) {
-                            edge.from = component.name;
-                        }
-                        if (component.declared_classes.contains(edge.to)) {
-                            edge.to = component.name;
+                        if (component.declared_classes !== undefined) {
+                            if (component.declared_classes.contains(edge.from)) {
+                                edge.from = component.name;
+                            }
+                            if (component.declared_classes.contains(edge.to)) {
+                                edge.to = component.name;
+                            }
                         }
                     });
                 });
