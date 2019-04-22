@@ -85,17 +85,9 @@ export default class DependencyGraph extends React.PureComponent {
     }
 
     render() {
-
-        function changeState() {
-            const nodes = this.state.graph.nodes.slice();
-            nodes.concat({id: "hello"});
-            this.state.graph.nodes = nodes;
-        }
-
         return (
             <div className="page full">
                 <Graph id='dep-graph' graph={this.state.graph} options={this.state.config}/>
-                <button onClick={changeState}>Refresh</button>
             </div>
         );
     };
