@@ -59,7 +59,7 @@ export default class DependencyGraph extends React.PureComponent {
         function generateEdgeList(from, destinations) {
             let edgeList = [];
             destinations.forEach((item) => {
-                edgeList.concat([{ from: from, to: item }])
+                edgeList = edgeList.concat([{ from: from, to: item }])
             });
             return edgeList;
         }
@@ -90,14 +90,14 @@ export default class DependencyGraph extends React.PureComponent {
                     if (component.declared_classes !== undefined) {
                         let declared_classes = component.declared_classes.split(';');
                         new_edges.forEach((edge) => {
-                                if (declared_classes.includes(edge.from)) {
-                                    edge.from = component.componentKey;
-                                }
-                                if (declared_classes.includes(edge.to)) {
-                                    edge.to = component.componentKey;
-                                }
+                            console.log(edge);
+                            if (declared_classes.includes(edge.from)) {
+                                edge.from = component.componentKey;
                             }
-                        );
+                            if (declared_classes.includes(edge.to)) {
+                                edge.to = component.componentKey;
+                            }
+                        });
                     }
                 });
                 this.setState({
