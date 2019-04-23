@@ -100,7 +100,8 @@ export default class DependencyGraph extends React.PureComponent {
                         console.log(new_edges);
                     }
                 });
-                console.log("edges: " + new_edges);
+                console.log("edges: ");
+                console.log(new_edges);
                 this.setState({
                     graph: {
                         nodes: this.state.graph.nodes,
@@ -108,7 +109,8 @@ export default class DependencyGraph extends React.PureComponent {
                     },
                     config: this.state.config
                 });
-                console.log("State: " + this.state);
+                console.log("State: ");
+                console.log(this.state);
             });
         });
     }
