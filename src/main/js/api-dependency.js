@@ -18,7 +18,6 @@ export function getDeclaredClasses(project) {
         ps: 500,
         qualifier: "FIL"
     }).then((response) => {
-        console.log(response);
         return response.declaredClasses;
     })
 }
