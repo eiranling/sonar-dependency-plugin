@@ -97,6 +97,7 @@ export default class DependencyGraph extends React.PureComponent {
                             }
                             return edge;
                         });
+                        console.log(new_edges);
                     }
                 });
                 this.state.graph = {
