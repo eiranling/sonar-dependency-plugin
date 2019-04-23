@@ -95,6 +95,7 @@ export default class DependencyGraph extends React.PureComponent {
                             if (declared_classes.includes(edge.to)) {
                                 edge.to = component.componentKey;
                             }
+                            console.log(edge);
                             return edge;
                         });
                     }
