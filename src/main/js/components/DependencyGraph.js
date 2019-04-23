@@ -48,7 +48,7 @@ export default class DependencyGraph extends React.PureComponent {
     }
 
     componentDidMount() {
-        console.log("v1.0");
+        console.log("v1.1");
         function generateDependencyList(dependencies) {
             if (dependencies !== undefined) {
                 return dependencies.split(';');
