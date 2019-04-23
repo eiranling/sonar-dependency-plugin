@@ -66,10 +66,11 @@ export default class DependencyGraph extends React.PureComponent {
         }
 
         getAllDependencies(this.props.project).then((valuesReturned) => {
+            let state = this.state;
             valuesReturned.forEach((component) => {
                let nodes = this.state.graph.nodes.slice();
                let edges = this.state.graph.edges.slice();
-               this.setState({
+               state = {
                    graph: {
                        nodes: nodes.concat([{
                            id: component.componentKey,
@@ -78,16 +79,16 @@ export default class DependencyGraph extends React.PureComponent {
                        edges: edges.concat(generateEdgeList(component.componentKey, generateDependencyList(component.dependencies)))
                    },
                    config: this.state.config
-               });
+               };
             });
-
-        }).then(() => {
+            return state;
+        }).then((state) => {
             getDeclaredClasses(this.props.project).then((valuesReturned) => {
                 let new_edges = this.state.graph.edges.slice();
                 valuesReturned.forEach((component) => {
                     if (component.declared_classes !== undefined) {
                         let declared_classes = component.declared_classes.split(';');
-                        this.setState({
+                        state = {
                             graph: {
                                 nodes: this.state.graph.nodes.slice(),
                                 edges: new_edges.map((edge) => {
@@ -102,11 +103,11 @@ export default class DependencyGraph extends React.PureComponent {
                                 })
                             },
                             config: this.state.config
-                        });
-                        this.forceUpdate()
+                        };
                     }
                 });
-                console.log(this.state);
+                console.log(state);
+                this.setState(state);
             });
 
         });
