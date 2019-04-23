@@ -75,7 +75,7 @@ export default class DependencyGraph extends React.PureComponent {
                            id: component.componentKey,
                            label: component.name
                        }]),
-                       edges: edges.concat([generateEdgeList(component.componentKey, generateDependencyList(component.dependencies))])
+                       edges: edges.concat(generateEdgeList(component.componentKey, generateDependencyList(component.dependencies)))
                    },
                    config: this.state.config
                });
