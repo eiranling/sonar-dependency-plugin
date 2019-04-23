@@ -88,29 +88,23 @@ export default class DependencyGraph extends React.PureComponent {
                 valuesReturned.forEach((component) => {
                     if (component.declared_classes !== undefined) {
                         let declared_classes = component.declared_classes.split(';');
-                        new_edges = new_edges.map((edge) => {
-                            if (declared_classes.includes(edge.from)) {
-                                edge.from = component.componentKey;
-                            }
-                            if (declared_classes.includes(edge.to)) {
-                                edge.to = component.componentKey;
-                            }
-                            return edge;
+                        this.setState({
+                            graph: {
+                                nodes: this.state.graph.nodes,
+                                edges: new_edges.map((edge) => {
+                                    if (declared_classes.includes(edge.from)) {
+                                        edge.from = component.componentKey;
+                                    }
+                                    if (declared_classes.includes(edge.to)) {
+                                        edge.to = component.componentKey;
+                                    }
+                                    return edge;
+                                })
+                            },
+                            config: this.state.config
                         });
-                        console.log(new_edges);
                     }
                 });
-                console.log("edges: ");
-                console.log(new_edges);
-                this.setState({
-                    graph: {
-                        nodes: this.state.graph.nodes,
-                        edges: new_edges
-                    },
-                    config: this.state.config
-                });
-                console.log("State: ");
-                console.log(this.state);
             });
         });
     }
