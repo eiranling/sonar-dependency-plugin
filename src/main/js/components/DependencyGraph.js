@@ -66,7 +66,6 @@ export default class DependencyGraph extends React.PureComponent {
 
         getAllDependencies(this.props.project).then((valuesReturned) => {
             valuesReturned.forEach((component) => {
-                console.log(component);
                const nodes = this.state.graph.nodes.slice();
                const edges = this.state.graph.edges.slice();
                this.setState({
@@ -82,7 +81,6 @@ export default class DependencyGraph extends React.PureComponent {
             });
 
         }).then(() => {
-            console.log("Calling declared classes");
             getDeclaredClasses(this.props.project).then((valuesReturned) => {
                 let new_edges = this.state.graph.edges.slice();
                 valuesReturned.forEach((component) => {
