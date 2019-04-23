@@ -100,10 +100,15 @@ export default class DependencyGraph extends React.PureComponent {
                         console.log(new_edges);
                     }
                 });
-                this.state.graph = {
-                    nodes: this.state.graph.nodes,
-                    edges: new_edges
-                };
+                console.log(new_edges);
+                this.setState({
+                    graph: {
+                        nodes: this.state.graph.nodes,
+                        edges: new_edges
+                    },
+                    config: this.state.config
+                });
+                console.log(this.state);
             });
         });
     }
