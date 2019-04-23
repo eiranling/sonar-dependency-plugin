@@ -81,7 +81,7 @@ export default class DependencyGraph extends React.PureComponent {
                });
             });
 
-        }).then((state) => {
+        }).then(() => {
             console.log("Calling declared classes");
             getDeclaredClasses(this.props.project).then((valuesReturned) => {
                 let new_edges = this.state.graph.edges.slice();
@@ -98,9 +98,11 @@ export default class DependencyGraph extends React.PureComponent {
                             return edge;
                         });
                     }
-                    this.state.graph.edges = new_edges;
-                    this.setState(state);
                 });
+                this.state.graph = {
+                    nodes: this.state.graph.nodes,
+                    edges: new_edges
+                };
             });
         });
     }
