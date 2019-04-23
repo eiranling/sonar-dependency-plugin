@@ -48,7 +48,7 @@ export default class DependencyGraph extends React.PureComponent {
     }
 
     componentDidMount() {
-        console.log("v1.1");
+        console.log("v1.2");
         function generateDependencyList(dependencies) {
             if (dependencies !== undefined) {
                 return dependencies.split(';');
@@ -97,16 +97,18 @@ export default class DependencyGraph extends React.PureComponent {
                                     if (declared_classes.includes(edge.to)) {
                                         edge.to = component.componentKey;
                                     }
+
                                     return edge;
                                 })
                             },
                             config: this.state.config
                         });
+                        this.forceUpdate()
                     }
                 });
                 console.log(this.state);
             });
-            this.forceUpdate()
+
         });
 
     }
