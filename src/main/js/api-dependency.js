@@ -21,3 +21,11 @@ export function getDeclaredClasses(project) {
         return response.declaredClasses;
     })
 }
+
+export function getDeclaredClass(component) {
+    return getJSON('../../../api/declared_classes/get', {
+        componentKey: component.componentKey
+    }).then((response) => {
+        return response
+    });
+}

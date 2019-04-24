@@ -1,6 +1,6 @@
 import React from 'react';
 import Graph from 'react-graph-vis';
-import {getAllDependencies, getDeclaredClasses} from "../api-dependency";
+import {getAllDependencies, getDeclaredClasses, getDeclaredClass} from "../api-dependency";
 import '../style.css'
 
 export default class DependencyGraph extends React.PureComponent {
@@ -49,9 +49,18 @@ export default class DependencyGraph extends React.PureComponent {
 
     componentDidMount() {
         console.log("v1.4");
-        function generateDependencyList(dependencies) {
-            if (dependencies !== undefined) {
-                return dependencies.split(';');
+        function generateDependencyList(component) {
+            if (component.dependencies !== undefined) {
+                const deps = component.dependencies.split(';');
+                return deps.map((dep) => {
+                    getDeclaredClass(component).then((valuesReturned) => {
+                        const declaredClasses = valuesReturned.declared_classes.split(';');
+                        if (declaredClasses.includes(dep)) {
+                            return valuesReturned.componentKey;
+                        }
+                        return dep;
+                    });
+                });
             } else {
                 return [];
             }
@@ -76,7 +85,7 @@ export default class DependencyGraph extends React.PureComponent {
                            id: component.componentKey,
                            label: component.name
                        }]),
-                       edges: edges.concat(generateEdgeList(component.componentKey, generateDependencyList(component.dependencies)))
+                       edges: edges.concat(generateEdgeList(component.componentKey, generateDependencyList(component)))
                    },
                    config: this.state.config
                };
