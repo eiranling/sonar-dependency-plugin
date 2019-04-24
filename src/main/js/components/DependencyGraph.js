@@ -75,11 +75,10 @@ export default class DependencyGraph extends React.PureComponent {
         }
 
         getAllDependencies(this.props.project).then((valuesReturned) => {
-            let state = this.state;
             valuesReturned.forEach((component) => {
                let nodes = this.state.graph.nodes.slice();
                let edges = this.state.graph.edges.slice();
-               state = {
+               this.setState({
                    graph: {
                        nodes: nodes.concat([{
                            id: component.componentKey,
@@ -88,36 +87,8 @@ export default class DependencyGraph extends React.PureComponent {
                        edges: edges.concat(generateEdgeList(component.componentKey, generateDependencyList(component)))
                    },
                    config: this.state.config
-               };
+               });
             });
-            return state;
-        }).then((state) => {
-            getDeclaredClasses(this.props.project).then((valuesReturned) => {
-                let new_edges = this.state.graph.edges.slice();
-                valuesReturned.forEach((component) => {
-                    if (component.declared_classes !== undefined) {
-                        let declared_classes = component.declared_classes.split(';');
-                        let new_state = {
-                            config: state.config,
-                            graph: {
-                                nodes: state.graph.nodes.slice(),
-                                edges: new_edges.map((edge) => {
-                                    if (declared_classes.includes(edge.from)) {
-                                        edge.from = component.componentKey;
-                                    }
-                                    if (declared_classes.includes(edge.to)) {
-                                        edge.to = component.componentKey;
-                                    }
-
-                                    return edge;
-                                })
-                            }
-                        };
-                        this.setState(new_state);
-                    }
-                });
-            });
-
         });
 
     }
