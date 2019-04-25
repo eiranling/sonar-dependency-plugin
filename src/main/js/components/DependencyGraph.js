@@ -48,7 +48,7 @@ export default class DependencyGraph extends React.PureComponent {
     }
 
     componentDidMount() {
-        console.log("v1.15");
+        console.log("v1.16");
         async function generateDependencyList(component, project) {
             if (component.dependencies !== undefined) {
                 let deps = component.dependencies.split(';');
