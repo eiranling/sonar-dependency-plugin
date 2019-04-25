@@ -51,7 +51,7 @@ export default class DependencyGraph extends React.PureComponent {
         console.log("v1.6");
         function generateDependencyList(component) {
             if (component.dependencies !== undefined) {
-                const deps = component.dependencies.split(';');
+                let deps = component.dependencies.split(';');
                 return deps.map((dep) => {
                     getDeclaredClass(component).then((valuesReturned) => {
                         const declaredClasses = valuesReturned.declared_classes.split(';');
