@@ -35,7 +35,7 @@ config.plugins = [
   new webpack.optimize.DedupePlugin()
 ];
 
-if (!true) {
+if (!noUglify) {
   config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compress: {
