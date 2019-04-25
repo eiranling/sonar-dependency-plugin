@@ -48,19 +48,19 @@ export default class DependencyGraph extends React.PureComponent {
     }
 
     componentDidMount() {
-        console.log("v1.6");
-        function generateDependencyList(component) {
+        console.log("v1.8");
+        async function generateDependencyList(component) {
             if (component.dependencies !== undefined) {
                 let deps = component.dependencies.split(';');
-                return deps.map((dep) => {
-                    getDeclaredClass(component).then((valuesReturned) => {
-                        const declaredClasses = valuesReturned.declared_classes.split(';');
-                        if (declaredClasses.includes(dep)) {
-                            return valuesReturned.componentKey;
-                        }
-                        return dep;
+                deps.map(async (dep) => {
+                    let valuesReturned = await getDeclaredClass(component);
+                    const declaredClasses = valuesReturned.declared_classes.split(';');
+                    if (declaredClasses.includes(dep)) {
+                        return valuesReturned.componentKey;
+                    }
+                    return dep;
                     });
-                });
+/*                });*/
             } else {
                 return [];
             }
@@ -74,25 +74,28 @@ export default class DependencyGraph extends React.PureComponent {
             return edgeList;
         }
 
-        getAllDependencies(this.props.project).then((valuesReturned) => {
-            let nodes = this.state.graph.nodes.slice();
-            let edges = this.state.graph.edges.slice();
-            valuesReturned.forEach((component) => {
-                nodes = this.state.graph.nodes.slice();
-                edges = this.state.graph.edges.slice();
-               this.setState({
-                   graph: {
-                       nodes: nodes.concat([{
-                           id: component.componentKey,
-                           label: component.name
-                       }]),
-                       edges: edges.concat(generateEdgeList(component.componentKey, generateDependencyList(component)))
-                   },
-                   config: this.state.config
-               });
+        function everything() {
+            getAllDependencies(this.props.project).then((valuesReturned) => {
+                let nodes = this.state.graph.nodes.slice();
+                let edges = this.state.graph.edges.slice();
+                valuesReturned.forEach(async (component) => {
+                    nodes = nodes.concat([{
+                        id: component.componentKey,
+                        label: component.name
+                    }]);
+                    edges = edges.concat(generateEdgeList(component.componentKey, await generateDependencyList(component)))
+                });
+                this.setState({
+                    graph: {
+                        nodes: nodes,
+                        edges: edges
+                    },
+                    config: this.state.config
+                });
             });
-            console.log(edges);
-        });
+        }
+
+        everything();
 
     }
 
