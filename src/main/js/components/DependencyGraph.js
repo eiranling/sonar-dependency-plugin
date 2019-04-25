@@ -57,11 +57,13 @@ export default class DependencyGraph extends React.PureComponent {
                     console.log(2);
                     for (let i = 0; i < valuesReturned.length; i++) {
                         console.log(3);
-                        let declaredClasses = valuesReturned[i].declared_classes.split(';');
-                        console.log(4);
-                        if (declaredClasses.includes(dep)) {
-                            console.log(5);
-                            return valuesReturned[i].componentKey;
+                        if (valuesReturned[i].declared_classes) {
+                            let declaredClasses = valuesReturned[i].declared_classes.split(';');
+                            console.log(4);
+                            if (declaredClasses.includes(dep)) {
+                                console.log(5);
+                                return valuesReturned[i].componentKey;
+                            }
                         }
                     }
                     return dep;
