@@ -100,6 +100,7 @@ export default class DependencyGraph extends React.PureComponent {
                 },
                 config: this.state.config
             });
+            console.log("state set");
         });
 
     }
