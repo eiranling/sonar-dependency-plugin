@@ -48,11 +48,11 @@ export default class DependencyGraph extends React.PureComponent {
     }
 
     componentDidMount() {
-        console.log("v1.10");
+        console.log("v1.11");
         async function generateDependencyList(component) {
             if (component.dependencies !== undefined) {
                 let deps = component.dependencies.split(';');
-                deps.map(async (dep) => {
+                deps = deps.map(async (dep) => {
                     let valuesReturned = await getDeclaredClass(component);
                     const declaredClasses = valuesReturned.declared_classes.split(';');
                     if (declaredClasses.includes(dep)) {
@@ -60,6 +60,7 @@ export default class DependencyGraph extends React.PureComponent {
                     }
                     return dep;
                     });
+                return await Promise.all(deps);;
 /*                });*/
             } else {
                 return [];
