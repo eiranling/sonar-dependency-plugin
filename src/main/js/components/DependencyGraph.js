@@ -1,7 +1,8 @@
 import React from 'react';
 import Graph from 'react-graph-vis';
 import {getAllDependencies, getDeclaredClasses, getDeclaredClass} from "../api-dependency";
-import '../style.css'
+import '../style.css';
+import isEqual from 'lodash/isEqual';
 
 export default class DependencyGraph extends React.PureComponent {
 
@@ -54,14 +55,10 @@ export default class DependencyGraph extends React.PureComponent {
                 let deps = component.dependencies.split(';');
                 let new_deps = deps.map(async (dep) => {
                     let valuesReturned = await getDeclaredClasses(project);
-                    console.log(2);
                     for (let i = 0; i < valuesReturned.length; i++) {
-                        console.log(3);
                         if (valuesReturned[i].declared_classes) {
                             let declaredClasses = valuesReturned[i].declared_classes.split(';');
-                            console.log(4);
                             if (declaredClasses.includes(dep)) {
-                                console.log(5);
                                 return valuesReturned[i].componentKey;
                             }
                         }
@@ -93,6 +90,7 @@ export default class DependencyGraph extends React.PureComponent {
                 }]);
                 edges = edges.concat(generateEdgeList(component.componentKey, await generateDependencyList(component, this.props.project)))
             });
+            console.log(isEqual(edges,this.state.graph.edges));
             this.setState({
                 graph: {
                     nodes: nodes,
