@@ -74,7 +74,6 @@ export default class DependencyGraph extends React.PureComponent {
             return edgeList;
         }
 
-        function everything() {
             getAllDependencies(this.props.project).then((valuesReturned) => {
                 let nodes = this.state.graph.nodes.slice();
                 let edges = this.state.graph.edges.slice();
@@ -93,9 +92,6 @@ export default class DependencyGraph extends React.PureComponent {
                     config: this.state.config
                 });
             });
-        }
-
-        everything();
 
     }
 
