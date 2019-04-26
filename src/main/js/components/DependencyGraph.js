@@ -49,6 +49,7 @@ export default class DependencyGraph extends React.PureComponent {
     }
 
     componentDidMount() {
+        let project = this.props.project;
         console.log("v1.23");
         async function generateDependencyList(component, project) {
             if (component.dependencies !== undefined) {
@@ -79,7 +80,7 @@ export default class DependencyGraph extends React.PureComponent {
             return edgeList;
         }
 
-        getAllDependencies(this.props.project).then((valuesReturned) => {
+        getAllDependencies(project).then((valuesReturned) => {
             let nodes = this.state.graph.nodes.slice();
             let edges = this.state.graph.edges.slice();
             valuesReturned.forEach(async function(component) {
@@ -88,7 +89,7 @@ export default class DependencyGraph extends React.PureComponent {
                     id: component.componentKey,
                     label: component.name
                 }]);
-                edges = edges.concat(await generateEdgeList(component.componentKey, await generateDependencyList(component, this.props.project)))
+                edges = edges.concat(await generateEdgeList(component.componentKey, await generateDependencyList(component, project)))
             });
             console.log(isEqual(edges,this.state.graph.edges));
             console.log(edges);
