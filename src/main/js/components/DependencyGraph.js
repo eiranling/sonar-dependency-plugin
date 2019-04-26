@@ -1,8 +1,7 @@
 import React from 'react';
 import Graph from 'react-graph-vis';
-import {getAllDependencies, getDeclaredClasses, getDeclaredClass} from "../api-dependency";
+import {getAllDependencies, getDeclaredClasses} from "../api-dependency";
 import '../style.css';
-import isEqual from 'lodash/isEqual';
 
 export default class DependencyGraph extends React.PureComponent {
 
@@ -37,6 +36,12 @@ export default class DependencyGraph extends React.PureComponent {
                     minVelocity: 1,
                     timestep: 0.22
 
+                },
+                layout: {
+                    hierarchical: {
+                        enabled: true,
+                        sortMethod: 'directed'
+                    }
                 }
             }
         };
@@ -44,10 +49,6 @@ export default class DependencyGraph extends React.PureComponent {
 
     componentDidMount() {
         let project = this.props.project;
-        console.log("v1.27");
-        function logHeader(headername) {
-            console.log("---------------------" + headername.toUpperCase() + "------------------------")
-        }
 
         async function generateDependencyList(component, project) {
             if (component.dependencies !== undefined) {
@@ -64,10 +65,6 @@ export default class DependencyGraph extends React.PureComponent {
                     }
                     return dep;
                 });
-                logHeader("deps");
-                console.log(deps);
-                logHeader("new_deps");
-                console.log(new_deps);
                 return await Promise.all(new_deps);
             } else {
                 return [];
@@ -76,8 +73,6 @@ export default class DependencyGraph extends React.PureComponent {
 
         function generateEdgeList(from, destinations) {
             let edgeList = [];
-            logHeader("destinations");
-            console.log(destinations);
             destinations.forEach((item) => {
                 edgeList = edgeList.concat([{ from: from, to: item }])
             });
@@ -88,19 +83,13 @@ export default class DependencyGraph extends React.PureComponent {
             if (component.qualifier !== "FIL") {
                 return { nodes: nodes, edges: edges };
             }
-            logHeader("component");
-            console.log(component);
             nodes = nodes.concat([{
                 id: component.componentKey,
                 label: component.name
             }]);
 
             let dep_list = await generateDependencyList(component, project);
-            logHeader("dep_list");
-            console.log(dep_list);
             let edge_list = generateEdgeList(component.componentKey, dep_list);
-            logHeader("edge_list");
-            console.log(edge_list);
             edges = edges.concat(edge_list);
             return {
                 nodes: nodes,
@@ -125,10 +114,6 @@ export default class DependencyGraph extends React.PureComponent {
                 nodes = graph.nodes;
                 edges = graph.edges;
             });
-            console.log(isEqual(edges, thisRef.state.graph.edges));
-            console.log(edges);
-            console.log(valuesReturned);
-            console.log(nodes);
             thisRef.setState({
                 graph: {
                     nodes: nodes,
@@ -136,7 +121,6 @@ export default class DependencyGraph extends React.PureComponent {
                 },
                 config: thisRef.state.config
             });
-            console.log("state set");
         }
 
         start(this)
