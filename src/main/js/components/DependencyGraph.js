@@ -56,7 +56,7 @@ export default class DependencyGraph extends React.PureComponent {
                         enabled: true,
                         sortMethod: 'directed',
                         nodeSpacing: 200,
-
+                        treeSpacing: 50
                     }
                 }
             }
