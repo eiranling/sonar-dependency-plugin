@@ -66,6 +66,7 @@ public abstract class ListRequestHandler implements RequestHandler {
                     .prop("componentId", component.getId())
                     .prop("componentKey", component.getKey())
                     .prop("path", component.getPath())
+                    .prop("qualifier", component.getQualifier())
                     .prop("name", component.getName());
             for (Measures.Measure measure : component.getMeasuresList()) {
                 writer.prop(measure.getMetric(), measure.getValue());

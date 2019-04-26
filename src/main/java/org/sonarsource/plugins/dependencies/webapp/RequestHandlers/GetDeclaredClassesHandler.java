@@ -34,6 +34,7 @@ public class GetDeclaredClassesHandler extends GetRequestHandler {
                 .prop("componentKey", request.mandatoryParam("componentKey"))
                 .prop("name", measures.getComponent().getName())
                 .prop("declared_classes", dependencies)
+                .prop("qualifier", measures.getComponent().getQualifier())
                 .endObject()
                 .close();
     }

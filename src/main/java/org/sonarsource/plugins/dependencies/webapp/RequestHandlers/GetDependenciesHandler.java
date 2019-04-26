@@ -34,6 +34,7 @@ public class GetDependenciesHandler extends GetRequestHandler {
                 .prop("componentKey", request.mandatoryParam("componentKey"))
                 .prop("name", measures.getComponent().getName())
                 .prop("dependencies", dependencies)
+                .prop("qualifier", measures.getComponent().getQualifier())
                 .endObject()
                 .close();
     }
