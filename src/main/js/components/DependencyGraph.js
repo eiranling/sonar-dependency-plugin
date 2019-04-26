@@ -51,6 +51,10 @@ export default class DependencyGraph extends React.PureComponent {
     componentDidMount() {
         let project = this.props.project;
         console.log("v1.24");
+        function logHeader(headername) {
+            console.log("---------------------" + headername.toUpperCase() + "------------------------")
+        }
+
         async function generateDependencyList(component, project) {
             if (component.dependencies !== undefined) {
                 let deps = component.dependencies.split(';');
@@ -66,6 +70,10 @@ export default class DependencyGraph extends React.PureComponent {
                     }
                     return dep;
                 });
+                logHeader("deps");
+                console.log(deps);
+                logHeader("new_deps");
+                console.log(new_deps);
                 return await Promise.all(new_deps);
             } else {
                 return [];
@@ -74,6 +82,7 @@ export default class DependencyGraph extends React.PureComponent {
 
         function generateEdgeList(from, destinations) {
             let edgeList = [];
+            logHeader("destinations");
             console.log(destinations);
             destinations.forEach((item) => {
                 edgeList = edgeList.concat([{ from: from, to: item }])
@@ -85,6 +94,7 @@ export default class DependencyGraph extends React.PureComponent {
             let nodes = this.state.graph.nodes.slice();
             let edges = this.state.graph.edges.slice();
             valuesReturned.forEach(async function(component) {
+                logHeader("component");
                 console.log(component);
                 nodes = nodes.concat([{
                     id: component.componentKey,
