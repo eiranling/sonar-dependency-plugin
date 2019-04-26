@@ -11,14 +11,8 @@ export default class DependencyGraph extends React.PureComponent {
         this.state = {
             graph: {
                 nodes: [
-                    {id: "ControllerId", label: "Controller"},
-                    {id: "ModelId", label: "Model"},
-                    {id: "ViewId", label: "View"}
                 ],
                 edges: [
-                    {from: "ControllerId", to: "ModelId"},
-                    {from: "ViewId", to: "ControllerId"},
-                    {from: "ModelId", to: "ViewId"}
                 ]
             },
             config: {
