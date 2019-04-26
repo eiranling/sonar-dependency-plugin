@@ -50,7 +50,7 @@ export default class DependencyGraph extends React.PureComponent {
 
     componentDidMount() {
         let project = this.props.project;
-        console.log("v1.24");
+        console.log("v1.25");
         function logHeader(headername) {
             console.log("---------------------" + headername.toUpperCase() + "------------------------")
         }
