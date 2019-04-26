@@ -90,26 +90,45 @@ export default class DependencyGraph extends React.PureComponent {
             return edgeList;
         }
 
-        getAllDependencies(project).then((valuesReturned) => {
+        async function processComponents(component, nodes, edges) {
+            logHeader("component");
+            console.log(component);
+            nodes = nodes.concat([{
+                id: component.componentKey,
+                label: component.name
+            }]);
+
+            let dep_list = generateDependencyList(component, project);
+            logHeader("dep_list");
+            console.log(dep_list);
+            let edge_list = generateEdgeList(component.componentKey, dep_list);
+            logHeader("edge_list");
+            console.log(edge_list);
+            edges = edges.concat(edge_list)
+            return {
+                nodes: nodes,
+                edges: edges
+            }
+        }
+
+        async function asyncForEach(array, callback) {
+            for (let index = 0; index < array.length; index++) {
+                await callback(array[index], index, array);
+            }
+            return array;
+        }
+
+        async function start() {
             let nodes = this.state.graph.nodes.slice();
             let edges = this.state.graph.edges.slice();
-            valuesReturned.forEach(async function(component) {
-                logHeader("component");
-                console.log(component);
-                nodes = nodes.concat([{
-                    id: component.componentKey,
-                    label: component.name
-                }]);
 
-                let dep_list = await generateDependencyList(component, project);
-                logHeader("dep_list");
-                console.log(dep_list);
-                let edge_list = generateEdgeList(component.componentKey, dep_list);
-                logHeader("edge_list");
-                console.log(edge_list);
-                edges = edges.concat(edge_list)
+            let valuesReturned = await getAllDependencies(project);
+            await asyncForEach(valuesReturned, async (value) => {
+                let graph = await processComponents(value, nodes, edges);
+                nodes = graph.nodes;
+                edges = graph.edges;
             });
-            console.log(isEqual(edges,this.state.graph.edges));
+            console.log(isEqual(edges, this.state.graph.edges));
             console.log(edges);
             console.log(valuesReturned);
             console.log(nodes);
@@ -121,7 +140,9 @@ export default class DependencyGraph extends React.PureComponent {
                 config: this.state.config
             });
             console.log("state set");
-        });
+        }
+
+        start()
 
     }
 
