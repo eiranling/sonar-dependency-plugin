@@ -85,6 +85,9 @@ export default class DependencyGraph extends React.PureComponent {
         }
 
         async function processComponents(component, nodes, edges) {
+            if (component.qualifier !== "FIL") {
+                return { nodes: nodes, edges: edges };
+            }
             logHeader("component");
             console.log(component);
             nodes = nodes.concat([{
@@ -98,7 +101,7 @@ export default class DependencyGraph extends React.PureComponent {
             let edge_list = generateEdgeList(component.componentKey, dep_list);
             logHeader("edge_list");
             console.log(edge_list);
-            edges = edges.concat(edge_list)
+            edges = edges.concat(edge_list);
             return {
                 nodes: nodes,
                 edges: edges
