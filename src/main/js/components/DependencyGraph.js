@@ -49,7 +49,7 @@ export default class DependencyGraph extends React.PureComponent {
     }
 
     componentDidMount() {
-        console.log("v1.21");
+        console.log("v1.22");
         async function generateDependencyList(component, project) {
             if (component.dependencies !== undefined) {
                 let deps = component.dependencies.split(';');
@@ -92,6 +92,7 @@ export default class DependencyGraph extends React.PureComponent {
             });
             console.log(isEqual(edges,this.state.graph.edges));
             console.log(edges);
+            console.log(valuesReturned);
             console.log(nodes);
             this.setState({
                 graph: {
