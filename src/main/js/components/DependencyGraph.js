@@ -18,8 +18,14 @@ export default class DependencyGraph extends React.PureComponent {
                 autoResize: true,
                 height: '100%',
                 width: '100%',
+                edges: {
+                    smooth: {
+                        type: "continuous",
+                        forceDirection: "none"
+                    }
+                },
                 physics: {
-                    enabled: false,
+                    enabled: true,
                     stabilization: {
                         enabled: true,
                         iterations: 3,
@@ -32,15 +38,25 @@ export default class DependencyGraph extends React.PureComponent {
                         springConstant: 0,
                         damping: 1
                     },
+                    hierarchicalRepulsion: {
+                        "centralGravity": 0,
+                        "springLength": 175,
+                        "springConstant": 0,
+                        "nodeDistance": 250,
+                        "damping": 1
+                    },
                     maxVelocity: 150,
                     minVelocity: 1,
+                    solver: "hierarchicalRepulsion",
                     timestep: 0.22
 
                 },
                 layout: {
                     hierarchical: {
                         enabled: true,
-                        sortMethod: 'directed'
+                        sortMethod: 'directed',
+                        nodeSpacing: 200,
+
                     }
                 }
             }
