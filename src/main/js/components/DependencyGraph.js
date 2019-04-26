@@ -100,7 +100,14 @@ export default class DependencyGraph extends React.PureComponent {
                     id: component.componentKey,
                     label: component.name
                 }]);
-                edges = edges.concat(generateEdgeList(component.componentKey, await generateDependencyList(component, project)))
+
+                let dep_list = await generateDependencyList(component, project);
+                logHeader("dep_list");
+                console.log(dep_list);
+                let edge_list = generateEdgeList(component.componentKey, dep_list);
+                logHeader("edge_list");
+                console.log(edge_list);
+                edges = edges.concat(edge_list)
             });
             console.log(isEqual(edges,this.state.graph.edges));
             console.log(edges);
