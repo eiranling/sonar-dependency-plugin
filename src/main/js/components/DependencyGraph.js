@@ -98,7 +98,7 @@ export default class DependencyGraph extends React.PureComponent {
                 label: component.name
             }]);
 
-            let dep_list = generateDependencyList(component, project);
+            let dep_list = await generateDependencyList(component, project);
             logHeader("dep_list");
             console.log(dep_list);
             let edge_list = generateEdgeList(component.componentKey, dep_list);
