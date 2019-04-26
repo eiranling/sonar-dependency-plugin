@@ -42,7 +42,7 @@ export default class DependencyGraph extends React.PureComponent {
                         "centralGravity": 0,
                         "springLength": 175,
                         "springConstant": 0,
-                        "nodeDistance": 250,
+                        "nodeDistance": 100,
                         "damping": 1
                     },
                     maxVelocity: 150,
