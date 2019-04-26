@@ -118,9 +118,9 @@ export default class DependencyGraph extends React.PureComponent {
             return array;
         }
 
-        async function start() {
-            let nodes = this.state.graph.nodes.slice();
-            let edges = this.state.graph.edges.slice();
+        async function start(thisRef) {
+            let nodes = thisRef.state.graph.nodes.slice();
+            let edges = thisRef.state.graph.edges.slice();
 
             let valuesReturned = await getAllDependencies(project);
             await asyncForEach(valuesReturned, async (value) => {
@@ -128,21 +128,21 @@ export default class DependencyGraph extends React.PureComponent {
                 nodes = graph.nodes;
                 edges = graph.edges;
             });
-            console.log(isEqual(edges, this.state.graph.edges));
+            console.log(isEqual(edges, thisRef.state.graph.edges));
             console.log(edges);
             console.log(valuesReturned);
             console.log(nodes);
-            this.setState({
+            thisRef.setState({
                 graph: {
                     nodes: nodes,
                     edges: edges
                 },
-                config: this.state.config
+                config: thisRef.state.config
             });
             console.log("state set");
         }
 
-        start()
+        start(this)
 
     }
 
