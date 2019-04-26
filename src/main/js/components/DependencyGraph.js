@@ -74,6 +74,7 @@ export default class DependencyGraph extends React.PureComponent {
 
         function generateEdgeList(from, destinations) {
             let edgeList = [];
+            console.log(destinations);
             destinations.forEach((item) => {
                 edgeList = edgeList.concat([{ from: from, to: item }])
             });
@@ -89,7 +90,7 @@ export default class DependencyGraph extends React.PureComponent {
                     id: component.componentKey,
                     label: component.name
                 }]);
-                edges = edges.concat(await generateEdgeList(component.componentKey, await generateDependencyList(component, project)))
+                edges = edges.concat(generateEdgeList(component.componentKey, await generateDependencyList(component, project)))
             });
             console.log(isEqual(edges,this.state.graph.edges));
             console.log(edges);
