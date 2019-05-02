@@ -5,3 +5,7 @@
 .sanity-check {
   width: 400px
 }
+
+.full {
+  height: 720px;
+}

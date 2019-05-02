@@ -5,12 +5,12 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.nodeTypes.NodeWithSimpleName;
 import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.scanner.ScannerSide;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@ScannerSide
 public class BRClassReader {
 
     public BRClassReader() {

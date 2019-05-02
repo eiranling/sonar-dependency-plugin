@@ -8,23 +8,18 @@ import org.sonarsource.plugins.dependencies.webapp.sonarapi.requestors.MeasuresC
 
 import java.util.Map;
 
-public class ListDependenciesHandler extends ListRequestHandler {
+public class ListDeclaredClassesHandler extends ListRequestHandler {
 
     private MeasuresComponentTreeRequestor componentTreeRequestor;
 
-    public ListDependenciesHandler(MeasuresComponentTreeRequestor componentTreeRequestor) {
+    public ListDeclaredClassesHandler(MeasuresComponentTreeRequestor componentTreeRequestor) {
         this.componentTreeRequestor = componentTreeRequestor;
     }
 
-    /**
-     * Function to handle the request made to the specific endpoint
-     * @param request the request
-     * @param response the response object to write json data to.
-     */
     @Override
-    public void handle(Request request, Response response) {
+    public void handle(Request request, Response response) throws Exception {
         Map<String, String> params = handleParams(request);
-        params.put("metricKeys", "dependencies"); // We only care about dependencies here
+        params.put("metricKeys", "declared_classes"); // We only care about dependencies here
 
         // makes the request to the web API to retrieve
         // the dependencies metric stored in the measures/component_tree endpoint.
@@ -32,12 +27,11 @@ public class ListDependenciesHandler extends ListRequestHandler {
                 request.localConnector(),
                 params);
 
-        constructResponse(response, treeResponse, "dependencies");
-
+        constructResponse(response, treeResponse, "declaredClasses");
     }
 
     @Override
     protected void setDescription(WebService.NewAction action) {
-        action.setDescription("Lists the child components and their dependencies");
+        action.setDescription("Lists the declared classes in a all file components");
     }
 }

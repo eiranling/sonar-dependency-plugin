@@ -5,7 +5,6 @@ import org.sonar.api.measures.Metric;
 import org.sonar.api.measures.Metrics;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class CustomMetrics implements Metrics {
@@ -17,9 +16,17 @@ public class CustomMetrics implements Metrics {
             .setDomain(CoreMetrics.DOMAIN_MAINTAINABILITY)
             .create();
 
+    public static final Metric<String> DECLARED_CLASSES = new Metric.Builder("declared_classes", "Declared Classes", Metric.ValueType.STRING)
+            .setDescription("Classes defined in the file")
+            .setDirection(Metric.DIRECTION_NONE)
+            .setQualitative(false)
+            .setDomain(CoreMetrics.DOMAIN_MAINTAINABILITY)
+            .create();
+
     public List<Metric> getMetrics() {
         List<Metric> metrics = new ArrayList<>();
         metrics.add(CONNECTED_DEPENDENCIES);
+        metrics.add(DECLARED_CLASSES);
         return metrics;
     }
 }

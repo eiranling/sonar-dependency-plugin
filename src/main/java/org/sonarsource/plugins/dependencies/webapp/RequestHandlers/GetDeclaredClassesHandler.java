@@ -7,24 +7,24 @@ import org.sonarsource.plugins.dependencies.webapp.sonarapi.requestors.MeasuresC
 
 import java.util.Collections;
 
-public class GetDependenciesHandler extends GetRequestHandler {
+public class GetDeclaredClassesHandler extends GetRequestHandler {
 
     private MeasuresComponentRequest componentRequest;
 
-    public GetDependenciesHandler(MeasuresComponentRequest componentRequest) {
+    public GetDeclaredClassesHandler(MeasuresComponentRequest componentRequest) {
         this.componentRequest = componentRequest;
     }
 
     @Override
-    public void handle(Request request, Response response) {
-        Measures.ComponentWsResponse measures = componentRequest.componentRequest(request.localConnector(),
-                Collections.singletonList("dependencies"),
+    public void handle(Request request, Response response) throws Exception {
+        Measures.ComponentWsResponse measures = componentRequest
+                .componentRequest(request.localConnector(),
+                Collections.singletonList("declared_classes"),
                 request.getParam("componentKey").getValue());
 
         String dependencies = "";
-        // There should only be one element here but just in case.
         for (Measures.Measure measure  : measures.getComponent().getMeasuresList()) {
-            if (measure.getMetric().equals("dependencies")) {
+            if (measure.getMetric().equals("declared_classes")) {
                 dependencies = measure.getValue();
             }
         }
@@ -33,7 +33,7 @@ public class GetDependenciesHandler extends GetRequestHandler {
                 .beginObject()
                 .prop("componentKey", request.mandatoryParam("componentKey"))
                 .prop("name", measures.getComponent().getName())
-                .prop("dependencies", dependencies)
+                .prop("declared_classes", dependencies)
                 .prop("qualifier", measures.getComponent().getQualifier())
                 .endObject()
                 .close();

@@ -4,12 +4,14 @@ import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.scanner.ScannerSide;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
 import java.io.IOException;
 import java.util.HashSet;
 
+@ScannerSide
 public class BRDependencyFinder {
 
     private Logger logger = Loggers.get("DependencyFinder");

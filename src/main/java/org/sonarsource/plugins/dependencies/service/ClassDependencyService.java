@@ -1,7 +1,7 @@
 package org.sonarsource.plugins.dependencies.service;
 
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.internal.google.common.collect.ImmutableMap;
+import org.sonar.api.scanner.ScannerSide;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.sonarsource.plugins.dependencies.br.BRClassReader;
@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@ScannerSide
 public class ClassDependencyService {
 
     private Map<InputFile, String> dependencyMap;
@@ -19,15 +20,14 @@ public class ClassDependencyService {
     private List<String> declaredClasses;
     private Logger logger = Loggers.get(getClass());
 
-    public ClassDependencyService(Iterable<InputFile> files, BRDependencyFinder finder, BRClassReader reader) {
+    public ClassDependencyService(BRDependencyFinder finder, BRClassReader reader) {
         dependencyMap = new HashMap<>();
         declaredClasses = new ArrayList<>();
         this.reader = reader;
-        initializeDependencyMap(files);
         this.finder = finder;
     }
 
-    private void initializeDependencyMap(Iterable<InputFile> files) {
+    public void initializeDependencyMap(Iterable<InputFile> files) {
         for (InputFile file : files) dependencyMap.putIfAbsent(file, "");
     }
 
